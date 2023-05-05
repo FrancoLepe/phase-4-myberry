@@ -12,6 +12,7 @@ flask-sqlalchemy = "*"
 sqlalchemy-serializer = "*"
 flask-cors = "*"
 datetime = "*"
+faker = "*"
 
 [dev-packages]
 
