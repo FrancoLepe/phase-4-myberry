@@ -41,6 +41,27 @@ def get_users():
     )
     return response
 
+@app.route('/books', methods=['GET'])
+def get_books():
+    books = []
+    for book in Book.query.all():
+        book_dict = {
+            "id": book.id,
+            "title": book.title,
+            "genre": book.genre,
+            "description": book.description,
+            "author": book.author,
+            "year": book.year,
+            "image": book.image
+        }
+        books.append(book_dict)
+
+    response = make_response(
+        books,
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
 
 if __name__ == '__main__':
     app.run(port=5555)
