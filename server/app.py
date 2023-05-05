@@ -16,8 +16,30 @@ migrate = Migrate(app, db)
 db.init_app(app)
 api = Api(app)
 
-# class Users(Resource):
-    
+@app.route('/')
+def index():
+    return '<h1>myBerry API is running!</h1>'
+
+@app.route('/users', methods=['GET'])
+def get_users():
+    users = []
+    for user in User.query.all():
+        user_dict = {
+            "id": user.id,
+            "fname": user.fname,
+            "lname": user.lname,
+            "email": user.email,
+            "phone": user.phone,
+            "created_at": user.created_at
+        }
+        users.append(user_dict)
+
+    response = make_response(
+        users,
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
 
 
 if __name__ == '__main__':

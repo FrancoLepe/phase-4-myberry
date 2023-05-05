@@ -5,7 +5,6 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
 from datetime import date, datetime, timedelta
 
-
 db = SQLAlchemy()
 
 class User(db.Model, SerializerMixin):
