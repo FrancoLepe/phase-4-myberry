@@ -44,7 +44,7 @@ class CheckoutLog(db.Model, SerializerMixin):
     book_id=db.Column(db.Integer, db.ForeignKey('books.id'))
     user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
     checkout_date=db.Column(db.DateTime, server_default=db.func.now())
-    due_date=db.Column(db.DateTime, server_default=db.func.now())
+    due_date=db.Column(db.DateTime)
     # server_default=datetime.date.today() + datetime.timedelta(days=14))
 
 
