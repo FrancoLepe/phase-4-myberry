@@ -47,8 +47,6 @@ with app.app_context():
             genre=random.choice(genres)
         )
 
-
-        print()
         db.session.add(book_info)
         db.session.commit()
         
@@ -56,7 +54,7 @@ with app.app_context():
     
 ############ * CheckoutLog * #############
 
-    position = ["Jr. Dev", "Sr. Dev", "UX Specialist"]
+   
 
     for i in range(10):
         
