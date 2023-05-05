@@ -1,4 +1,10 @@
-from models import User, Book, CheckoutLog
+#!/usr/bin/env python3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import datetime
+from datetime import date
+from app import app
+from models import db, User, Book, CheckoutLog
 
 if __name__ == '__main__':
     with app.app_context():
@@ -77,3 +83,4 @@ if __name__ == '__main__':
 
         session.bulk_save_objects([scott_henry, diana_jordan, franco_lepe, book1, book2, book3, checkoutlog1, checkoutlog2, checkoutlog3])
         session.commit()
+        print("Seeding done!")
