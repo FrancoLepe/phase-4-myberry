@@ -1,7 +1,13 @@
 import React from 'react'
+import NavBar from './NavBar'
 
 function Account(){
-    return( <p> my account</p>)
+    return(
+    <div>
+        <NavBar />
+        <div>Account.js</div>
+    </div>
+    )
 }
 
 export default Account;

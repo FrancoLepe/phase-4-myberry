@@ -2,12 +2,8 @@ import React, {useState, useEffect} from 'react'
 import Home from './components/Home'
 import MyBooks from './components/MyBooks'
 import Account from './components/Account'
-import NavBar from './components/NavBar'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import './App.css';
-
-
 
 function App() {
 
@@ -20,26 +16,19 @@ function App() {
   }, [] )
   console.log(books)
   
-
   return (
     <div className="App">
-      
-
-      <Router>
-      <NavBar />
-       <Switch>
-         <Route path="/mybooks">
-           <MyBooks/>
-         </Route>
-         <Route path="/account" >
-           <Account />
-         </Route>
-         <Route path= "/">
-           <Home books={books}/>
-         </Route>
-       </Switch>
-
-      </Router>
+        <Switch>
+          <Route exact path="/mybooks">
+            <MyBooks/>
+          </Route>
+          <Route exact path="/account" >
+            <Account />
+          </Route>
+          <Route exact path= "/">
+            <Home books={books}/>
+          </Route>
+        </Switch>
     </div>
   );
 }

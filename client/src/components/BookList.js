@@ -10,7 +10,7 @@ function BookList({books}){
 
     return(
     <div>
-        <p> book list data </p>
+        <p>Booklist.js</p>
         {bookCardsArray}
      </div>
     )

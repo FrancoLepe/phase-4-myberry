@@ -1,7 +1,13 @@
 import React from 'react'
+import NavBar from './NavBar'
 
 function MyBooks(){
-    return( <p> my books page</p>)
+    return(
+    <div>
+        <NavBar />
+        <div>MyBooks.js</div>
+    </div>
+    )
 }
 
 export default MyBooks;
