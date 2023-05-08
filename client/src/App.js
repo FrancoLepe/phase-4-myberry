@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Home from './components/Home'
 import MyBooks from './components/MyBooks'
 import Account from './components/Account'
-import { Route, Switch } from "react-router";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 
 
@@ -21,18 +21,20 @@ function App() {
 
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/mybooks">
-          <MyBooks/>
-        </Route>
-        <Route exact path="/account">
-          <Account/>
-        </Route>
-        <Route exact path= "/">
-          <Home books={books}/>
-        </Route>
+      <Router>
+       <Switch>
+         <Route exact path="/mybooks">
+           <MyBooks/>
+         </Route>
+         <Route exact path="/account">
+           <Account />
+         </Route>
+         <Route exact path= "/">
+           <Home books={books}/>
+         </Route>
 
-      </Switch>
+       </Switch>
+      </Router>
     </div>
   );
 }
