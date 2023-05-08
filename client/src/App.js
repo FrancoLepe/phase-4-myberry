@@ -3,6 +3,7 @@ import Home from './components/Home'
 import MyBooks from './components/MyBooks'
 import Account from './components/Account'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import API_URL from "./apiConfig.js";
 import './App.css';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const [books, setBooks] = useState([])
 
   useEffect( () => {
-    fetch( 'http://127.0.0.1:5555/books' )
+    fetch(`${API_URL}/books`)
       .then( r => r.json() )
       .then( setBooks )
   }, [] )
