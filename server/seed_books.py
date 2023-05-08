@@ -1,11 +1,9 @@
 import requests
 import json
-# &sort=random
-response_API = requests.get('https://openlibrary.org/search.json?q=bannedbooks&limit=10&sort=random')
+response_API = requests.get('https://openlibrary.org/search.json?q=bannedbooks&limit=20&sort=random')
 print(response_API.status_code)
 data = response_API.text
 parse_json = json.loads(data)
-# print(parse_json['docs'])
 
 books= []
 for book in parse_json['docs']:
@@ -19,7 +17,7 @@ for book in parse_json['docs']:
         genre = None
     if book.get('cover_i'):
         cover=book['cover_i']
-        image =f'https://covers.openlibrary.org/b/id/{cover}-M.jpg'
+        image =f'https://covers.openlibrary.org/b/id/{cover}-L.jpg'
     else:
         image = None
 
@@ -29,7 +27,11 @@ for book in parse_json['docs']:
     book_parse_json = json.loads(book_data)
 
     if book_parse_json.get('description'):
-        description = book_parse_json['description'].partition('\r')[0]
+        
+        if type(book_parse_json['description']) == dict:
+            description = book_parse_json['description']['value']
+        else:
+            description = book_parse_json['description'].partition('\r')[0]
     else:
         description = None
     
