@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react'
+import Home from './components/Home'
+import MyBooks from './components/MyBooks'
+import Account from './components/Account'
+import { Route, Switch } from "react-router";
 import './App.css';
 
+
+
 function App() {
+
+  const [books, setBooks] = useState([])
+
+  useEffect( () => {
+    fetch( 'http://127.0.0.1:5555/books' )
+      .then( r => r.json() )
+      .then( setBooks )
+  }, [] )
+  console.log(books)
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/mybooks">
+          <MyBooks/>
+        </Route>
+        <Route exact path="/account">
+          <Account/>
+        </Route>
+        <Route exact path= "/">
+          <Home books={books}/>
+        </Route>
+
+      </Switch>
     </div>
   );
 }
