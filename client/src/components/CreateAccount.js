@@ -52,7 +52,6 @@ function CreateAccount({currentUser, onLogout, onCreateAccount}) {
     
     return (
         <div>
-                <NavBar />
                 <div>
                     <br />
                     <div><h1>Create My Account</h1></div>

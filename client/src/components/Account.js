@@ -3,10 +3,9 @@ import NavBar from './NavBar'
 import Login from './Login'
 import CreateAccount from './CreateAccount'
 
-function Account(){
+function Account({ currentUser, setCurrentUser }){
     return(
         <div>
-        <NavBar />
         <div>Account</div>
         <br />
         <a href="/login">Login</a>

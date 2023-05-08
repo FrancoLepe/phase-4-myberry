@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
-function Login(){
+function Login({currentUser, setCurrentUser, handleLogin}) {
 
     const [newEmail, setNewEmail] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -13,8 +13,9 @@ function Login(){
 
     function handleLoginResult(user) {
         if (user.hasOwnProperty('id')) {
-            console.log(user);
             console.log("successful login")
+            console.log(user);
+            handleLogin(user);
         } 
     }
 
@@ -43,7 +44,6 @@ function Login(){
 
     return(
         <div>
-            <NavBar />
             <form onSubmit={handleLoginSubmit}>
             <input 
               type="email" 

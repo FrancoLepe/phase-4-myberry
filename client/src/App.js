@@ -6,36 +6,43 @@ import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import API_URL from "./apiConfig.js";
+import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
 
   const [books, setBooks] = useState([])
+  const [currentUser, setCurrentUser] = useState('')
+
+  const handleLogin = (user) => {
+    setCurrentUser(user)
+    console.log(user.fname)
+  }
 
   useEffect( () => {
     fetch(`${API_URL}/books`)
       .then( r => r.json() )
       .then( setBooks )
   }, [] )
-  console.log(books)
   
   return (
     <div className="App">
+        <NavBar currentUser={currentUser} />
         <Switch>
           <Route exact path="/mybooks">
             <MyBooks/>
           </Route>
           <Route exact path="/account">
-            <Account />
+            <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
           </Route>
           <Route exact path="/login">
-            <Login />
+            <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin}/>
           </Route>
           <Route exact path="/createaccount">
             <CreateAccount />
           </Route>
           <Route exact path= "/">
-            <Home books={books}/>
+            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} />
           </Route>
         </Switch>
     </div>
