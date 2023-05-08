@@ -1,16 +1,15 @@
-from random import choice as rc, randint
 from faker import Faker
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from app import app
 from models import db, User, Book, CheckoutLog
 import random
-
+import json
 
 faker = Faker()
 
+with open('book-list.json') as fp:
+    data = json.load(fp)
+
 with app.app_context():
-# if __name__ == '__main__':
 
     User.query.delete()
     CheckoutLog.query.delete()
@@ -23,7 +22,7 @@ with app.app_context():
             fname = faker.first_name(),
             lname= faker.last_name(),
             email = faker.email(),
-            phone = 32,
+            phone = random.randint(1000000000, 9999999999),
             role = 'user',
             password='password'
         )
@@ -32,44 +31,37 @@ with app.app_context():
         db.session.commit()
 
 
-    
 ############ * Books * #############
-    genres = ["horror", "personal development", "non-fiction"]
+    # genres = ["horror", "personal development", "non-fiction"]
 
-    for i in range(10):
-    
+    for book in data['books']:
         book_info = Book(
-            title = faker.sentence(nb_words=5, variable_nb_words=False),
-            author=faker.name(),
-            description = faker.sentence(nb_words=15, variable_nb_words=False),
-            image = 'https://timvandevall.com/wp-content/uploads/Book-Cover-Template-Thumb.jpg',
-            year=2023,
-            genre=random.choice(genres)
+            title = book['title'],
+            author= book['author'],
+            description =  book['description'],
+            image =  book['image'],
+            year= book['year'],
+            genre= book['genre']
         )
 
         db.session.add(book_info)
         db.session.commit()
-        
 
-    
+
 ############ * CheckoutLog * #############
 
-   
-
-    for i in range(10):
-        
+    book_pick = [book.id for book in Book.query.all()]
+    while len(book_pick) > 5:
+        rand_user = random.choice(User.query.all())
+        rand_book=random.choice(book_pick)
         checkout_log_data = CheckoutLog(
-            book_id= 1,
-            user_id= 1
+            book_id= rand_book,
+            user_id= rand_user.id
         )
+        
+        book_pick.remove(rand_book)
         db.session.add(checkout_log_data)
         db.session.commit()
-
-
-
-   
-       
-
 
 
 
