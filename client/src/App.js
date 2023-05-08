@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react'
 import Home from './components/Home'
 import MyBooks from './components/MyBooks'
 import Account from './components/Account'
+import NavBar from './components/NavBar'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import './App.css';
 
 
@@ -21,19 +23,22 @@ function App() {
 
   return (
     <div className="App">
+      
+
       <Router>
+      <NavBar />
        <Switch>
-         <Route exact path="/mybooks">
+         <Route path="/mybooks">
            <MyBooks/>
          </Route>
-         <Route exact path="/account">
+         <Route path="/account" >
            <Account />
          </Route>
-         <Route exact path= "/">
+         <Route path= "/">
            <Home books={books}/>
          </Route>
-
        </Switch>
+
       </Router>
     </div>
   );
