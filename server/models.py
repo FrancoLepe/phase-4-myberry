@@ -9,6 +9,8 @@ db = SQLAlchemy()
 
 class User(db.Model, SerializerMixin):
     __tablename__= 'users'
+    
+    serialize_rules = ("-created_at", "-updated_at", "-checkout_logs")
 
     id=db.Column(db.Integer, primary_key=True)
     fname=db.Column(db.String, nullable= False)

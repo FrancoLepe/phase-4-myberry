@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
+app.secret_key = b"\x7f\x7f(\xe8\x0c('\xa8\xa5\x82pb\t\x1d>rZ\x8c^\x7f\xbb\xe2L|"
 
 CORS(app)
 migrate = Migrate(app, db)
@@ -37,6 +38,34 @@ def get_users():
     response = make_response(
         users,
         200,
+        {"Content-Type": "application/json"}
+    )
+    return response
+
+@app.route('/users', methods=['POST'])
+def create_user():
+    user = User(
+        fname=request.json.get("fname"),
+        lname=request.json.get("lname"),
+        email=request.json.get("email"),
+        phone=request.json.get("phone"),
+        role="user",
+        password=request.json.get("password"),
+    )
+    db.session.add(user)
+    db.session.commit()
+    user_dict = {
+        "id": user.id,
+        "fname": user.fname,
+        "lname": user.lname,
+        "email": user.email,
+        "phone": user.phone,
+        "role": user.role,
+        "password": user.password,
+    }
+    response = make_response(
+        user_dict,
+        201,
         {"Content-Type": "application/json"}
     )
     return response

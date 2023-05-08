@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
-
+import API_URL from "../apiConfig.js";
 
 function Login(){
 
@@ -9,6 +9,13 @@ function Login(){
     const handleEmail = e => setNewEmail(e.target.value)
     const handlePassword = e => setNewPassword(e.target.value)
     const history = useHistory();
+
+    function handleLoginResult(user) {
+        if (user.hasOwnProperty('id')) {
+            console.log(user);
+            console.log("successful login")
+        } 
+    }
 
   function handleLoginSubmit(e) {
     e.preventDefault();
@@ -21,7 +28,7 @@ function Login(){
                 password: newPassword
             })
         };
-        fetch('/', requestOptions)
+        fetch(`${API_URL}/login`, requestOptions)
             .then((r) => r.json())
             .then((user) => {
                 handleLoginResult(user);
@@ -30,11 +37,7 @@ function Login(){
         console.log(err);
     }
 
-    function handleLoginResult(user) {
-        if (user.hasOwnProperty('id')) {
-            history.push('/');
-        } 
-        }
+    
     }
 
     return(
@@ -51,7 +54,7 @@ function Login(){
               value={newPassword}
               onChange={handlePassword}
             />
-             
+             <button type="submit">Login</button>
             </form>
         </div>
     )
