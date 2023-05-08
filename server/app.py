@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify, session
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
@@ -40,6 +40,17 @@ def get_users():
         {"Content-Type": "application/json"}
     )
     return response
+
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.json.get('email')
+    password = request.json.get('password')
+    user = User.query.filter_by(email=email).first()
+    if (user.password == password):
+        session['user_id'] = user.id
+        return user.to_dict()
+    else:
+        return {'message': '401: Not Authorized'}, 401
 
 @app.route('/books', methods=['GET'])
 def get_books():
