@@ -71,7 +71,22 @@ def create_user():
     return response
 
 
-
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = User.query.get(user_id)
+    user_dict = {
+        "id": user.id,
+        "fname": user.fname,
+        "lname": user.lname,
+        "email": user.email,
+        "phone": user.phone,
+    }
+    response = make_response(
+        user_dict,
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
 
 @app.route('/login', methods=['POST'])
 def login():
