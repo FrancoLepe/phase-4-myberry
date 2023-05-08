@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
+import NavBar from "./NavBar.js";
 
 function CreateAccount({currentUser, onLogout, onCreateAccount}) {
 
@@ -51,6 +52,7 @@ function CreateAccount({currentUser, onLogout, onCreateAccount}) {
     
     return (
         <div>
+                <NavBar />
                 <div>
                     <br />
                     <div><h1>Create My Account</h1></div>

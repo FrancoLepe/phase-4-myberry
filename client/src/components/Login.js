@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 import API_URL from "../apiConfig.js";
+import NavBar from "./NavBar.js";
 
 function Login(){
 
@@ -42,6 +43,7 @@ function Login(){
 
     return(
         <div>
+            <NavBar />
             <form onSubmit={handleLoginSubmit}>
             <input 
               type="email" 

@@ -5,14 +5,14 @@ import CreateAccount from './CreateAccount'
 
 function Account(){
     return(
-    <div>
+        <div>
         <NavBar />
-        <div>Account.js</div>
+        <div>Account</div>
         <br />
-        {/* <Login /> */}
+        <a href="/login">Login</a>
         <br />
-        <CreateAccount />
-    </div>
+        <a href="/createaccount">Create Account</a>
+  </div>
     )
 }
 

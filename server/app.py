@@ -70,6 +70,9 @@ def create_user():
     )
     return response
 
+
+
+
 @app.route('/login', methods=['POST'])
 def login():
     email = request.json.get('email')
