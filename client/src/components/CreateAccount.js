@@ -24,14 +24,6 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
     function handleCreateAccountSubmit(e) {
         e.preventDefault();
 
-        const newUser = {
-            fname: newFirstName,
-            lname: newLastName,
-            email: newEmail,
-            phone: newPhone,
-            password: newPassword
-        }
-
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

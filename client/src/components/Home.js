@@ -6,7 +6,7 @@ import './Home.css'
 function Home({books, currentUser, setCurrentUser}) {
     return(
     <div>
-        <BookList books= {books}/>
+        <BookList books= {books} currentUser={currentUser}/>
     </div>
     )
 }

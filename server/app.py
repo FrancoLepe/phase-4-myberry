@@ -143,27 +143,62 @@ class Login(Resource):
         
 api.add_resource(Login, '/login')
 
-@app.route('/books', methods=['GET'])
-def get_books():
-    books = []
-    for book in Book.query.all():
-        book_dict = {
-            "id": book.id,
-            "title": book.title,
-            "genre": book.genre,
-            "description": book.description,
-            "author": book.author,
-            "year": book.year,
-            "image": book.image
-        }
-        books.append(book_dict)
+# @app.route('/books', methods=['GET'])
+# def get_books():
+#     books = []
+#     for book in Book.query.all():
+#         book_dict = {
+#             "id": book.id,
+#             "title": book.title,
+#             "genre": book.genre,
+#             "description": book.description,
+#             "author": book.author,
+#             "year": book.year,
+#             "image": book.image
+#         }
+#         books.append(book_dict)
 
-    response = make_response(
-        books,
-        200,
-        {"Content-Type": "application/json"}
-    )
-    return response
+#     response = make_response(
+#         books,
+#         200,
+#         {"Content-Type": "application/json"}
+#     )
+#     return response
+class Books(Resource):
+
+    def get(self):
+        books = Book.query.all()
+        books_dict = [book.to_dict(rules = ('checkout_logs.id',)) for book in books]
+        
+        response = make_response(
+            books_dict,
+            200,
+            {"Content-Type": "application/json"}
+        )
+        return response
+api.add_resource(Books, '/books')
+
+class CreateLogs(Resource):
+     def post(self):
+        data = request.get_json()
+        try:
+            new_log= CheckoutLog(
+                user_id=data['user_id'],
+                book_id=data['book_id']
+            )
+            db.session.add(new_log)
+            db.session.commit()
+
+        except Exception as errors:
+            return make_response({
+                "errors":[errors.__str__()]
+            },422)
+
+        new_log_dict = new_log.to_dict()
+        return make_response(new_log_dict, 201)
+
+api.add_resource(CreateLogs, '/create_logs')
+
 
 if __name__ == '__main__':
     app.run(port=5555)
