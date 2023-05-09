@@ -6,13 +6,11 @@ function NavBar({ currentUser }) {
     const navClass = "rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
     return (
         <div className="sm:justify-center space-x-4">
-
+            {currentUser ? (<div >Welcome, {currentUser.fname} {currentUser.lname}!</div>) : <NavLink className='NavLink' exact to='/login'>Login</NavLink>}
             <div>
-
-                <a href="/" className={navClass}>Home</a>
-                <a href="/mybooks" className={navClass}>My Books</a>
-                <a href="/account" className={navClass}>My Account</a>
-                {currentUser ? (<div >Welcome, {currentUser.fname} {currentUser.lname}!</div>) : <a href='/login' className={navClass}>Login</a>}
+                <NavLink className={navClass} exact to='/'>Home</NavLink>
+                <NavLink className={navClass} exact to='/mybooks'>My Books</NavLink>
+                <NavLink className={navClass} exact to='/account'>My Account</NavLink>
             </div>
         </div>
     )

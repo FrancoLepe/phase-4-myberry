@@ -1,16 +1,14 @@
 import React from 'react'
-import NavBar from './NavBar'
-import Login from './Login'
-import CreateAccount from './CreateAccount'
+import { NavLink } from "react-router-dom";
 
 function Account({ currentUser, setCurrentUser }){
     return(
         <div>
         <div>Account</div>
         <br />
-        <a href="/login">Login</a>
+        <NavLink exact to='/login'>Login</NavLink>
         <br />
-        <a href="/createaccount">Create Account</a>
+        <NavLink exact to='/createaccount'>Create Account</NavLink>
   </div>
     )
 }
