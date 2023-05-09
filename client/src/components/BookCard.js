@@ -3,8 +3,9 @@ import React from 'react'
 
 function BookCard({ book, currentUser, myBooks }) {
 
-   //let isCheckedOut = book.checkout_logs[0]
-   //console.log(isCheckedOut)
+
+    let isCheckedOut = book.checkout_logs[0]
+    console.log(isCheckedOut)
     
     function handleCheckOut(){
     
