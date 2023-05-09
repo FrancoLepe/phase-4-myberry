@@ -77,7 +77,7 @@ class Users(Resource):
 
     def get(self,id):
         user = User.query.filter_by(id=id).first()
-        user_dict = user.to_dict(rules = ('books',))
+        user_dict = user.to_dict(rules = ('books', 'checkout_logs.id',))
         response = make_response(
             user_dict,
             200,

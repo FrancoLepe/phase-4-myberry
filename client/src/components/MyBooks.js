@@ -16,7 +16,7 @@ function MyBooks({ currentUser }){
         <div>MyBooks.js</div>
         <br />
         {/* {myBooks.map( book => <div key={book.id}>{book.title}</div>)} */}
-        <BookList books= {myBooks}/>
+        <BookList books={myBooks} currentUser={currentUser} myBooks={true} />
     </div>
     )
 }
