@@ -10,7 +10,7 @@ db = SQLAlchemy()
 class User(db.Model, SerializerMixin):
     __tablename__= 'users'
     
-    serialize_rules = ("-created_at", "-updated_at", "-checkout_logs")
+    serialize_rules = ("-created_at", "-updated_at", "-checkout_logs", "-books.user", "-book.checkout_logs")
 
     id=db.Column(db.Integer, primary_key=True)
     fname=db.Column(db.String, nullable= False)
@@ -38,6 +38,9 @@ class User(db.Model, SerializerMixin):
 
 class Book(db.Model, SerializerMixin):
     __tablename__='books'
+    
+    serialize_rules = ("-created_at", "-updated_at", "-checkout_logs", "-users.book", "-users.checkout_logs")
+    
 
     id=db.Column(db.Integer, primary_key=True)
     title=db.Column(db.String)
@@ -48,10 +51,13 @@ class Book(db.Model, SerializerMixin):
     description=db.Column(db.String)
 
     checkout_logs=db.relationship("CheckoutLog", backref= 'book', cascade= 'all, delete, delete-orphan')
-    books=association_proxy('checkout_logs','user')
+    users=association_proxy('checkout_logs','user')
 
 class CheckoutLog(db.Model, SerializerMixin):
     __tablename__='checkout_logs'
+    
+    serialize_rules = ('-book.checkout_logs', '-user.checkout_logs')
+    
 
     id=db.Column(db.Integer, primary_key=True)
     book_id=db.Column(db.Integer, db.ForeignKey('books.id'))

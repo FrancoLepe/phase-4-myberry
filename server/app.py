@@ -73,22 +73,18 @@ def create_user():
     return response
 
 
-@app.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = User.query.get(user_id)
-    user_dict = {
-        "id": user.id,
-        "fname": user.fname,
-        "lname": user.lname,
-        "email": user.email,
-        "phone": user.phone
-    }
-    response = make_response(
-        user_dict,
-        200,
-        {"Content-Type": "application/json"}
-    )
-    return response
+class Users(Resource):
+
+    def get(self,id):
+        user = User.query.filter_by(id=id).first()
+        user_dict = user.to_dict(rules = ('books',))
+        response = make_response(
+            user_dict,
+            200,
+            {"Content-Type": "application/json"}
+        )
+        return response
+api.add_resource(Users, '/users/<int:id>')
 
 
 @app.route('/users/<int:user_id>', methods=['PUT'])
@@ -146,7 +142,6 @@ class Login(Resource):
         return make_response({'error':'401 Unauthorized'},401)
         
 api.add_resource(Login, '/login')
-
 
 @app.route('/books', methods=['GET'])
 def get_books():
