@@ -20,7 +20,7 @@ function App() {
   }
 
   useEffect( () => {
-    fetch(`${API_URL}/books`)
+    fetch('/books')
       .then( r => r.json() )
       .then( setBooks )
   }, [] )
