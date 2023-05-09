@@ -4,12 +4,15 @@ import MyBooks from './components/MyBooks'
 import Account from './components/Account'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import EditUser from './components/EditUser'
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import API_URL from "./apiConfig.js";
 import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
+
+  const history = useHistory();
 
   const [books, setBooks] = useState([])
   const [currentUser, setCurrentUser] = useState('')
@@ -40,6 +43,9 @@ function App() {
           </Route>
           <Route exact path="/createaccount">
             <CreateAccount />
+          </Route>
+          <Route exact path="/edituser">
+            <EditUser currentUser={currentUser} />
           </Route>
           <Route exact path= "/">
             <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} />

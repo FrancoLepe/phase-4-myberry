@@ -1,23 +1,28 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
 
-function Account({ currentUser, setCurrentUser }){
-   
-   console.log(currentUser)
-   
-   
+function Account({ currentUser, setCurrentUser, onLogout }){
    
    
     return(
         <div>
-        <div>Account</div>
-        <br />
-        <NavLink exact to='/edituser' >Edit User</NavLink>
-        <br />
-        <NavLink exact to='/login'>Login</NavLink>
-        <br />
-        <NavLink exact to='/createaccount'>Create Account</NavLink>
-  </div>
+            { currentUser ? (
+                <div>
+                    <br />
+                    <div><h2><b>Logged in as:</b></h2></div>
+                    <div>Name: {currentUser.fname} {currentUser.lname}</div>
+                    <div>Email: {currentUser.email}</div>
+                    <div>Phone: {currentUser.phone}</div>
+                    <br />
+                    <div><NavLink className='NavLink' exact to = '/edituser'>Update My Account</NavLink></div>
+                    <div><button>Logout</button></div>
+                </div>) : (
+                <div>
+                    <br />
+                    <div><NavLink className='NavLink' exact to = '/login'>Login</NavLink></div>
+                    <div><NavLink className='NavLink' exact to = '/createaccount'>Create an Account</NavLink></div>
+                </div>)}
+        </div>
     )
 }
 

@@ -44,9 +44,6 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
             })
         };
         fetch('/users', requestOptions)
-            
-
-
             history.push("/login")
     }
 
