@@ -199,6 +199,21 @@ class CreateLogs(Resource):
 
 api.add_resource(CreateLogs, '/create_logs')
 
+class CreateLogsById(Resource):
+    def delete(self,id):
+        log = CheckoutLog.query.filter_by(id=id).first()
+        if not log:
+            return make_response({
+                'error': 'books not found'}, 404
+                )
+        db.session.delete(log)
+        db.session.commit()
+
+        return make_response('', 200)
+
+api.add_resource(CreateLogsById, '/create_logs/<int:id>')
+
+
 
 if __name__ == '__main__':
     app.run(port=5555)
