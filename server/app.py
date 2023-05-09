@@ -32,6 +32,7 @@ def get_users():
             "lname": user.lname,
             "email": user.email,
             "phone": user.phone,
+            "role": user.role,
             "created_at": user.created_at
         }
         users.append(user_dict)
@@ -80,7 +81,7 @@ def get_user(user_id):
         "fname": user.fname,
         "lname": user.lname,
         "email": user.email,
-        "phone": user.phone,
+        "phone": user.phone
     }
     response = make_response(
         user_dict,
@@ -88,6 +89,49 @@ def get_user(user_id):
         {"Content-Type": "application/json"}
     )
     return response
+
+
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    user.fname = request.json.get("fname")
+    user.lname = request.json.get("lname")
+    user.email = request.json.get("email")
+    user.phone = request.json.get("phone")
+    db.session.commit()
+    user_dict = {
+        "id": user.id,
+        "fname": user.fname,
+        "lname": user.lname,
+        "email": user.email,
+        "phone": user.phone
+    }
+    response = make_response(
+        user_dict,
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
+
+@app.route('/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    user_dict = {
+        "id": user.id,
+        "fname": user.fname,
+        "lname": user.lname,
+        "email": user.email,
+        "phone": user.phone
+    }
+    response = make_response(
+        user_dict,
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
+
 
 class Login(Resource):
     def post(self):
