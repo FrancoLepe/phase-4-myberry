@@ -21,6 +21,7 @@ api = Api(app)
 def index():
     return '<h1>myBerry API is running!</h1>'
 
+
 @app.route('/users', methods=['GET'])
 def get_users():
     users = []
@@ -88,16 +89,19 @@ def get_user(user_id):
     )
     return response
 
-@app.route('/login', methods=['POST'])
-def login():
-    email = request.json.get('email')
-    password = request.json.get('password')
-    user = User.query.filter_by(email=email).first()
-    if (user.password == password):
-        session['user_id'] = user.id
-        return user.to_dict()
-    else:
-        return {'message': '401: Not Authorized'}, 401
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        email= data['email']
+        password= data['password']
+        user = User.query.filter_by(email=email).first()
+        if  user:
+            if (user.password == password):
+                session['user_id'] = user.id
+                return make_response(user.to_dict(),200)
+        return make_response({'error':'401 Unauthorized'},401)
+        
+api.add_resource(Login, '/login')
 
 @app.route('/books', methods=['GET'])
 def get_books():

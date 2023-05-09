@@ -24,6 +24,17 @@ class User(db.Model, SerializerMixin):
 
     checkout_logs=db.relationship("CheckoutLog", backref= 'user', cascade= 'all, delete, delete-orphan')
     books=association_proxy('checkout_logs','book')
+    
+    @validates('email')
+    def validate_email(self, key,value):
+        if not value:
+            raise ValueError('email is required')
+        return value
+    @validates('password')
+    def validate_password(self, key,value):
+        if not value:
+            raise ValueError('password is required')
+        return value
 
 class Book(db.Model, SerializerMixin):
     __tablename__='books'
