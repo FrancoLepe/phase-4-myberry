@@ -46,15 +46,11 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
                     if (r.ok) {
                         r.json().then((user) => {
                             handleLoginResult(user);
-                            setFormErrors([])
                             
                         })
                     } else {
                         r.json().then((err) => {
-                            // console.log(typeof(err.error))
                             setFormErrors(err.error)
-                            // console.log(formErrors)
-                            // console.log(Object.keys(formErrors).length > 0)
                         });
                     }
                 })

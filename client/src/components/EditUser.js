@@ -3,51 +3,44 @@ import { useHistory } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
-function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
+function EditUser({ currentUser}) {
 
-    const [newFirstName, setNewFirstName] = useState('')
-    const [newLastName, setNewLastName] = useState('')
-    const [newEmail, setNewEmail] = useState('')
-    const [newPhone, setNewPhone] = useState('')
-    const [newPassword, setNewPassword] = useState('')
+    const [updateFirstName, setUpdateFirstName] = useState('')
+    const [updateLastName, setUpdateLastName] = useState('')
+    const [updateEmail, setUpdateEmail] = useState('')
+    const [updatePhone, setUpdatePhone] = useState('')
+    const [updatePassword, setUpdatePassword] = useState('')
 
-    const handleFirstName = e => setNewFirstName(e.target.value)
-    const handleLastName = e => setNewLastName(e.target.value)
-    const handleEmail = e => setNewEmail(e.target.value)
-    const handlePhone = e => setNewPhone(e.target.value)
-    const handlePassword = e => setNewPassword(e.target.value)
+    const handleFirstName = e => setUpdateFirstName(e.target.value)
+    const handleLastName = e => setUpdateLastName(e.target.value)
+    const handleEmail = e => setUpdateEmail(e.target.value)
+    const handlePhone = e => setUpdatePhone(e.target.value)
+    const handlePassword = e => setUpdatePassword(e.target.value)
     const history = useHistory();
 
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 
 
-    function handleCreateAccountSubmit(e) {
+    function handleUpdateUser(e) {
         e.preventDefault();
 
-        const newUser = {
-            fname: newFirstName,
-            lname: newLastName,
-            email: newEmail,
-            phone: newPhone,
-            password: newPassword
-        }
 
         const requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                fname: newFirstName,
-                lname: newLastName,
-                email: newEmail,
-                phone: newPhone,
-                password: newPassword
+                fname: updateFirstName,
+                lname: updateLastName,
+                email: updateEmail,
+                phone: updatePhone,
+                password: updatePassword
             })
         };
-        fetch('/users', requestOptions)
+        fetch(`/users/${currentUser.id}`, requestOptions)
             
 
 
-            history.push("/login")
+            history.push("/account")
     }
 
     // function handleLogout() {
@@ -60,7 +53,7 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
         <div className ='flex justify-center items-center'>
             <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <h1>Create New Account</h1>
-            <form className="space-y-6" onSubmit={handleCreateAccountSubmit}>
+            <form className="space-y-6" onSubmit={handleUpdateUser}>
                 <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
                 <input type="name" name="fname" placeholder="First Name" className={formField} onChange={handleFirstName} />
 
@@ -87,4 +80,4 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
     )
 }
 
-export default CreateAccount;
+export default EditUser;
