@@ -14,6 +14,7 @@ function App() {
 
   const history = useHistory();
 
+  const [users, setUsers] = useState([])
   const [books, setBooks] = useState([])
   const [currentUser, setCurrentUser] = useState('')
 
@@ -21,6 +22,12 @@ function App() {
     setCurrentUser(user)
     console.log(user.fname)
   }
+
+  useEffect( () => {
+    fetch('/users')
+      .then( r => r.json() )
+      .then( setUsers )
+  }, [] )
 
   useEffect( () => {
     fetch('/books')
@@ -33,7 +40,7 @@ function App() {
         <NavBar currentUser={currentUser} />
         <Switch>
           <Route exact path="/mybooks">
-            <MyBooks/>
+            <MyBooks users={users} currentUser={currentUser} books={books} />
           </Route>
           <Route exact path="/account">
             <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
