@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
-import { useFormik } from "formik";
-import * as yup from "yup";
+// import { useFormik } from "formik";
+// import * as yup from "yup";
 
 function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
 

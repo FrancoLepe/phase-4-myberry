@@ -8,6 +8,7 @@ import EditUser from './components/EditUser'
 import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import API_URL from "./apiConfig.js";
 import NavBar from './components/NavBar';
+import logo from './images/myBerry-transparent-background-3.png'
 import './App.css';
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
     <div className="App">
       
         <NavBar currentUser={currentUser} />
+        <img src={logo} alt="logo" width={200} height={100}/>
         <Switch>
           <Route exact path="/mybooks">
             <MyBooks currentUser={currentUser} books={books}  xx={mybooks} checkInBook={checkInBook}  checkOutBook={checkOutBook}/>
