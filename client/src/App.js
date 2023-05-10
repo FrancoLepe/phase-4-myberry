@@ -8,7 +8,6 @@ import EditUser from './components/EditUser'
 import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import API_URL from "./apiConfig.js";
 import NavBar from './components/NavBar';
-import logo from './images/myBerry-transparent-background-3.png'
 import './App.css';
 
 function App() {
@@ -25,10 +24,14 @@ function App() {
   }
 
   function checkOutBook(book) {
-
+    console.log('///////----')
+    console.log(book)
+    console.log('///////')
     const updatedBooks = books.map(bookObj => {
-      if ((bookObj.id) === (book.id)) {
+      if ((bookObj.id) === (book.book_id)) {
         bookObj.checkout_log = true;
+        bookObj.checkout_id = book.id;
+        bookObj.user_id = book.user_id;
         return bookObj;
       } else {
         return bookObj;
@@ -41,6 +44,8 @@ function App() {
     const updatedBooks = books.map(bookObj => {
       if ((bookObj.id) === (book.id)) {
         bookObj.checkout_log = false;
+        bookObj.checkout_id = null;
+        bookObj.user_id = null;
         return bookObj;
       } else {
         return bookObj;
@@ -70,7 +75,6 @@ function App() {
     <div className="App">
       
         <NavBar currentUser={currentUser} />
-        <img src={logo} alt="logo" width={200} height={100}/>
         <Switch>
           <Route exact path="/mybooks">
             <MyBooks currentUser={currentUser} books={books}  xx={mybooks} checkInBook={checkInBook}  checkOutBook={checkOutBook}/>
