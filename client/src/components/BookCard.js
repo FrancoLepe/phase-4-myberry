@@ -5,7 +5,7 @@ function BookCard({ book, currentUser, myBooks }) {
 
 
     let isCheckedOut = book.checkout_logs[0]
-    console.log(isCheckedOut)
+    //console.log(isCheckedOut)
     
     function handleCheckOut(){
     
@@ -41,12 +41,16 @@ function BookCard({ book, currentUser, myBooks }) {
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Genre: {book.genre}</p>
                 { myBooks ? (
                         <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckIn}>Check In</button>
-                    ) : null
+                    ) : (
+                        <div>
+                            { isCheckedOut ? (
+                                <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
+                            ) : <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
+                            }
+                        </div>
+                    )
                 }
-                { isCheckedOut ? (
-                        <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
-                    ) : <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
-                }
+                
                 
             </div>
         </div>
