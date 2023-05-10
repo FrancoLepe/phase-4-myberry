@@ -25,15 +25,19 @@ class User(db.Model, SerializerMixin):
     checkout_logs=db.relationship("CheckoutLog", backref= 'user', cascade= 'all, delete, delete-orphan')
     books=association_proxy('checkout_logs','book')
     
+    @validates( 'password','fname', 'lname','phone','role')
+    def validate_nullable(self, key,value):
+        if not value:
+            raise ValueError(f'{key} is required')
+        return value
+   
     @validates('email')
-    def validate_email(self, key,value):
+    def validate_email(self, key, value):
+        emails = User.query.all()
+        if value in  emails:
+            raise ValueError('email already exists')
         if not value:
             raise ValueError('email is required')
-        return value
-    @validates('password')
-    def validate_password(self, key,value):
-        if not value:
-            raise ValueError('password is required')
         return value
 
 class Book(db.Model, SerializerMixin):
