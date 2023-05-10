@@ -4,7 +4,6 @@ import React from 'react'
 function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
     let isCheckedOut = book.checkout_log
-    //console.log(isCheckedOut)
     
     function handleCheckOut(){
     
@@ -22,7 +21,7 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
     function handleCheckIn(){
 
-        let deleteId = book.checkout_logs[0].id
+        let deleteId = book.checkout_id
         console.log(deleteId)
         const deleteCheckout = {
         method: 'DELETE',

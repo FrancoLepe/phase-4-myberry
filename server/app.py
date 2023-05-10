@@ -141,9 +141,11 @@ class Books(Resource):
             if log:
                 x= True
                 checkout_id=log.id
+                user = log.user_id
             else:
                 x = False
                 checkout_id=None
+                user = None
                 
             book_dict = {
                 "id": book.id,
@@ -154,7 +156,8 @@ class Books(Resource):
                 "image": book.image,
                 "description": book.description,
                 "checkout_log": x,
-                "checkout_id" : checkout_id
+                "checkout_id" : checkout_id,
+                "user_id": user
             }
             books.append(book_dict)
             

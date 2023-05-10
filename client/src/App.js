@@ -36,6 +36,18 @@ function App() {
     setBooks(updatedBooks);
   }
 
+  function checkInBook(book) {
+    const updatedBooks = books.map(bookObj => {
+      if ((bookObj.id) === (book.id)) {
+        bookObj.checkout_log = false;
+        return bookObj;
+      } else {
+        return bookObj;
+      }
+    });
+    setBooks(updatedBooks);
+  }
+
   useEffect( () => {
     fetch('/users')
       .then( r => r.json() )
@@ -47,13 +59,18 @@ function App() {
       .then( r => r.json() )
       .then( setBooks )
   }, [] )
-  
+
+
+
+  const mybooks = books.filter(bookObj => bookObj.user_id ===currentUser.id)
+ 
+
   return (
     <div className="App">
         <NavBar currentUser={currentUser} />
         <Switch>
           <Route exact path="/mybooks">
-            <MyBooks currentUser={currentUser} books={books} />
+            <MyBooks currentUser={currentUser} books={books}  xx={mybooks} checkInBook={checkInBook}  checkOutBook={checkOutBook}/>
           </Route>
           <Route exact path="/account">
             <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -68,7 +85,7 @@ function App() {
             <EditUser currentUser={currentUser} />
           </Route>
           <Route exact path= "/">
-            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} />
+            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook}  checkInBook={checkInBook}  />
           </Route>
         </Switch>
     </div>
