@@ -30,7 +30,7 @@ class User(db.Model, SerializerMixin):
         if not value:
             raise ValueError(f'{key} is required')
         return value
-   
+
     @validates('email')
     def validate_email(self, key, value):
         emails = User.query.all()

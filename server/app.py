@@ -134,10 +134,30 @@ api.add_resource(Login, '/login')
 class Books(Resource):
 
     def get(self):
-        books = Book.query.all()
-        books_dict = [book.to_dict(rules=('checkout_logs.id',)) for book in books]
+        
+        books = []
+        for book in Book.query.all():
+            log = CheckoutLog.query.filter_by(book_id=book.id).first()
+            if log:
+                x= True
+            else:
+                x = False
+                
+            book_dict = {
+                "id": book.id,
+                "title": book.title,
+                "author": book.author,
+                "genre": book.genre,
+                "year": book.year,
+                "image": book.image,
+                "description": book.description,
+                "checkout_log": x
+            }
+            books.append(book_dict)
+            
+            
         response = make_response(
-            books_dict,
+            books,
             200,
             {"Content-Type": "application/json"}
         )
