@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
 
@@ -19,6 +21,41 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
     const history = useHistory();
 
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+
+    // const formSchemaFormik = yup.object().shape({
+    //     email: yup.string().email("Invalid email").required("Must enter email"),
+    //     fname: yup.string().required("Must enter a first name").max(15),
+    //     lname: yup.string().required("Must enter a  last name").max(15),
+    //     phone: yup
+    //       .number()
+    //       .integer()
+    //       .required("required")
+    //       .typeError("Please enter an valid phone number")
+    //       .max(10),
+    //     password:yup.required("please enter a password")
+    //   });
+
+    //   const formik = useFormik({
+    //     initialValues: {
+    //       name: "",
+    //       email: "",
+    //       age: "",
+    //     },
+    //     validationSchema: formSchema,
+    //     onSubmit: (values) => {
+    //       fetch("customers", {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(values, null, 2),
+    //       }).then((res) => {
+    //         if (res.status == 200) {
+    //           setRefreshPage(!refreshPage);
+    //         }
+    //       });
+    //     },
+    //   });
 
 
     function handleCreateAccountSubmit(e) {
