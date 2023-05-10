@@ -143,6 +143,7 @@ class Books(Resource):
                 checkout_id=log.id
             else:
                 x = False
+                checkout_id=None
                 
             book_dict = {
                 "id": book.id,

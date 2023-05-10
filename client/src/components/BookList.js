@@ -1,10 +1,10 @@
 import React from 'react'
 import BookCard from './BookCard'
 
-function BookList({books, currentUser, myBooks, checkOutBook, checkInBook, setmyCheckedOutBooks }){
+function BookList({books, currentUser, myBooks, checkOutBook, checkInBook }){
 
     const bookCardsArray = books.map( bookObj => {
-       return <BookCard key={bookObj.id} book={bookObj} currentUser={currentUser} myBooks={myBooks} checkOutBook={checkOutBook} checkInBook={checkInBook} setmyCheckedOutBooks={setmyCheckedOutBooks} />  
+       return <BookCard key={bookObj.id} book={bookObj} currentUser={currentUser} myBooks={myBooks} checkOutBook={checkOutBook} checkInBook={checkInBook} />  
       } )
 
     //   grid-rows-2 , gap-y-2

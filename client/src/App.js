@@ -27,7 +27,7 @@ function App() {
 
     const updatedBooks = books.map(bookObj => {
       if ((bookObj.id) === (book.id)) {
-        book.checkout_log = true;
+        bookObj.checkout_log = true;
         return bookObj;
       } else {
         return bookObj;

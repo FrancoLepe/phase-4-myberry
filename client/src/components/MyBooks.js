@@ -12,9 +12,10 @@ function MyBooks({ books, currentUser }){
       }, [] )
 
       function checkInBook(book) {
-        const updatedBooks = books.map(bookObj => {
+        
+        const updatedBooks = myCheckedOutBooks.map(bookObj => {
           if (bookObj.id === book.id) {
-            book.checkout_log = true;
+            bookObj.checkout_log = true;
             return bookObj;
           } else {
             return bookObj;
@@ -28,7 +29,7 @@ function MyBooks({ books, currentUser }){
         <div>MyBooks.js</div>
         <br />
         {/* {myBooks.map( book => <div key={book.id}>{book.title}</div>)} */}
-        <BookList books={myCheckedOutBooks} setmyCheckedOutBooks={setmyCheckedOutBooks} currentUser={currentUser} myBooks={true} checkInBook={checkInBook} />
+        <BookList books={myCheckedOutBooks} currentUser={currentUser} myBooks={true} checkInBook={checkInBook} />
     </div>
     )
 }
