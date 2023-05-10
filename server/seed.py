@@ -51,7 +51,7 @@ with app.app_context():
 ############ * CheckoutLog * #############
 
     book_pick = [book.id for book in Book.query.all()]
-    while len(book_pick) > 5:
+    while len(book_pick) > 10:
         rand_user = random.choice(User.query.all())
         rand_book=random.choice(book_pick)
         checkout_log_data = CheckoutLog(

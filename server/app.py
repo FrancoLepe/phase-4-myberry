@@ -186,6 +186,7 @@ class CreateLogs(Resource):
                 "errors": [errors.__str__()]
             }, 422)
         new_log_dict = new_log.to_dict()
+        print(new_log_dict)
         return make_response(new_log_dict, 201)
 api.add_resource(CreateLogs, '/create_logs')
 
