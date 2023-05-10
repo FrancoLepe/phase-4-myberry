@@ -1,10 +1,9 @@
 import React from 'react'
 
 
-function BookCard({ book, currentUser, myBooks }) {
+function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
-
-    let isCheckedOut = book.checkout_logs[0]
+    let isCheckedOut = book.checkout_log
     //console.log(isCheckedOut)
     
     function handleCheckOut(){
@@ -18,18 +17,19 @@ function BookCard({ book, currentUser, myBooks }) {
                 })
             };
             fetch('/create_logs', requestCheckout)
-                // history.push("/login")
-    
+            .then(checkOutBook(book))
     }
 
     function handleCheckIn(){
 
         let deleteId = book.checkout_logs[0].id
+        console.log(deleteId)
         const deleteCheckout = {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
      }
        fetch(`/create_logs/${deleteId}`, deleteCheckout)
+       .then(checkInBook(book))
     }
         
     return (

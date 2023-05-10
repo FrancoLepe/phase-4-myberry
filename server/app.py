@@ -140,6 +140,7 @@ class Books(Resource):
             log = CheckoutLog.query.filter_by(book_id=book.id).first()
             if log:
                 x= True
+                checkout_id=log.id
             else:
                 x = False
                 
@@ -151,7 +152,8 @@ class Books(Resource):
                 "year": book.year,
                 "image": book.image,
                 "description": book.description,
-                "checkout_log": x
+                "checkout_log": x,
+                "checkout_id" : checkout_id
             }
             books.append(book_dict)
             

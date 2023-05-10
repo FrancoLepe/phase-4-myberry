@@ -23,6 +23,32 @@ function App() {
     console.log(user.fname)
   }
 
+  function checkOutBook(book) {
+
+    const updatedBooks = books.map(bookObj => {
+      if ((bookObj.id) === (book.id)) {
+        book.checkout_log = true;
+        return bookObj;
+      } else {
+        return bookObj;
+      }
+    });
+    setBooks(updatedBooks);
+  }
+
+  function checkInBook(book) {
+
+    const updatedBooks = books.map(bookObj => {
+      if ((bookObj.id) === (book.id)) {
+        book.checkout_log = false;
+        return bookObj;
+      } else {
+        return bookObj;
+      }
+    });
+    setBooks(updatedBooks);
+  }
+
   useEffect( () => {
     fetch('/users')
       .then( r => r.json() )
@@ -40,7 +66,7 @@ function App() {
         <NavBar currentUser={currentUser} />
         <Switch>
           <Route exact path="/mybooks">
-            <MyBooks users={users} currentUser={currentUser} books={books} />
+            <MyBooks users={users} currentUser={currentUser} books={books} checkInBook={checkInBook} />
           </Route>
           <Route exact path="/account">
             <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -55,7 +81,7 @@ function App() {
             <EditUser currentUser={currentUser} />
           </Route>
           <Route exact path= "/">
-            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} />
           </Route>
         </Switch>
     </div>
