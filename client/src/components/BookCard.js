@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
+function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook, setmyCheckedOutBooks }) {
 
     let isCheckedOut = book.checkout_log
     //console.log(isCheckedOut)
@@ -29,6 +29,7 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
         headers: { 'Content-Type': 'application/json' },
      }
        fetch(`/create_logs/${deleteId}`, deleteCheckout)
+       .then(setmyCheckedOutBooks(book))
        .then(checkInBook(book))
     }
         

@@ -36,19 +36,6 @@ function App() {
     setBooks(updatedBooks);
   }
 
-  function checkInBook(book) {
-
-    const updatedBooks = books.map(bookObj => {
-      if ((bookObj.id) === (book.id)) {
-        book.checkout_log = false;
-        return bookObj;
-      } else {
-        return bookObj;
-      }
-    });
-    setBooks(updatedBooks);
-  }
-
   useEffect( () => {
     fetch('/users')
       .then( r => r.json() )
@@ -66,7 +53,7 @@ function App() {
         <NavBar currentUser={currentUser} />
         <Switch>
           <Route exact path="/mybooks">
-            <MyBooks users={users} currentUser={currentUser} books={books} checkInBook={checkInBook} />
+            <MyBooks currentUser={currentUser} books={books} />
           </Route>
           <Route exact path="/account">
             <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
