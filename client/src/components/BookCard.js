@@ -16,8 +16,16 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
                 })
             };
             fetch('/create_logs', requestCheckout)
-            .then(checkOutBook(book))
+            .then(r=> r.json())
+            .then(r=>{ 
+                console.log(r)
+                console.log(book)
+                checkOutBook(r)
+                // checkOutBook(book)
+            })
     }
+
+
 
     function handleCheckIn(){
 
