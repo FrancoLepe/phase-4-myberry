@@ -79,7 +79,7 @@ function App() {
 
   const navigate = useNavigate();
   function handleLogout() {
-    fetch(`${API_URL}/logout`, {
+    fetch(`${API_URL}/logout`,{credentials: 'include'}, {
         method: "DELETE",
     })
         .then(setCurrentUser(''))
@@ -91,7 +91,7 @@ function App() {
  
 
   return (
-    <div className="App">
+    <div className="App bg-yellow-50">
       
         <NavBar currentUser={currentUser} />
         <Routes>

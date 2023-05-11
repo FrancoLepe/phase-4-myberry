@@ -201,6 +201,9 @@ class Logout(Resource):
     def delete(self):
         print(f'{session}-before delete ')
         session['user_id'] = None
+        # session.clear()
+        # session.pop('user_id', None)
+        
         print(f'{session}-after delete ')
         return {'message': '204: No Content'}, 204
 api.add_resource(Logout, '/logout')
