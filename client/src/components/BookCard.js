@@ -29,17 +29,13 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
         fetch(`${API_URL}/create_logs`, requestCheckout)
             .then(r => r.json())
             .then(r => {
-                console.log(r)
-                console.log(book)
                 checkOutBook(r)
-                // checkOutBook(book)
             })
     }
 
     function handleCheckIn() {
 
         let deleteId = book.checkout_id
-        console.log(deleteId)
         const deleteCheckout = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },

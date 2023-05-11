@@ -38,9 +38,6 @@ function App() {
   }
 
   function checkOutBook(book) {
-    console.log('///////----')
-    console.log(book)
-    console.log('///////')
     const updatedBooks = books.map(bookObj => {
       if ((bookObj.id) === (book.book_id)) {
         bookObj.checkout_log = true;

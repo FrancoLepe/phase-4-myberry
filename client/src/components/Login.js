@@ -18,7 +18,6 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
 
     function handleLoginResult(user) {
         if (user.hasOwnProperty('id')) {
-            console.log("successful login")
             console.log(user);
             handleLogin(user);
             navigate("/")
