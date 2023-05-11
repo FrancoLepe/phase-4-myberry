@@ -38,11 +38,6 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
   });
 
 
-  // function handleLogout() {
-  //     fetch("/logout", {
-  //         method: "DELETE",
-  //     }).then(() => onLogout());
-  // }
 
   return (
     <div className='flex justify-center items-center'>
@@ -89,6 +84,7 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
     </div>
   )
 }
+
 
 export default CreateAccount;
 

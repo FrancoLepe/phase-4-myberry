@@ -1,7 +1,9 @@
 import React from 'react'
-
+import { Route, useNavigate } from "react-router-dom";
 
 function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
+    const navigate = useNavigate();
+
     let isCheckedOut = book.checkout_log
 
     function handleCheckOut() {
@@ -31,6 +33,23 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
             .then(checkInBook(book))
     }
 
+
+    const renderButton = () => {
+        if (myBooks) {
+            return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckIn}>Check In</button>
+        } else {
+            if (isCheckedOut) {
+                return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
+            } else {
+                if (currentUser) {
+                    return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
+                } else {
+                    return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={() => navigate("/login")}>Check Out</button>
+                }
+            }
+        }
+    }
+
     return (
         <div className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <img src={book.image} alt={'Cover image for ' + book.title} className="object-cover w-full rounded-t-lg h96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" />
@@ -38,17 +57,7 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Author: {book.author}</p>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Genre: {book.genre}</p>
-                {myBooks ? (
-                    <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckIn}>Check In</button>
-                ) : (
-                    <div>
-                        {isCheckedOut ? (
-                            <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
-                        ) : <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
-                        }
-                    </div>
-                )
-                }
+                {renderButton()}
             </div>
         </div>
     )
