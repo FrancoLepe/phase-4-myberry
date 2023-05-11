@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 
-function EditUser({ currentUser, setCurrentUser }) {
+function EditUser({ currentUser, setCurrentUser, onLogout}) {
 
 
     const navigate = useNavigate();
@@ -46,6 +46,14 @@ function EditUser({ currentUser, setCurrentUser }) {
     //         method: "DELETE",
     //     }).then(() => onLogout());
     // }
+    function deleteAccount(){
+        fetch(`/users/${currentUser.id}`,
+        {method: 'DELETE',})
+        .then(() => onLogout())
+        
+
+        
+    }
 
     return (
         <div className='flex justify-center items-center'>

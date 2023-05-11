@@ -5,7 +5,7 @@ import Account from './components/Account'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 import EditUser from './components/EditUser'
-import { BrowserRouter as Router, Routes, Route, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom";
 import API_URL from "./apiConfig.js";
 import NavBar from './components/NavBar';
 import './App.css';
@@ -80,6 +80,14 @@ function App() {
       .then( setBooks )
   }, [] )
 
+  const navigate = useNavigate();
+  function handleLogout() {
+    fetch(`${API_URL}/logout`, {
+        method: "DELETE",
+    })
+        .then(setCurrentUser(''))
+        .then(navigate("/"))
+}
 
 
   const mybooks = books.filter(bookObj => bookObj.user_id ===currentUser.id)
@@ -92,7 +100,7 @@ function App() {
         <Routes>
           <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser} books={books}  xx={mybooks} checkInBook={checkInBook}  checkOutBook={checkOutBook}/> }/>
           <Route exact path="/account" element={
-            <Account currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Account currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
           }/>
           <Route exact path="/login" element={ 
             <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin}/>
@@ -101,7 +109,7 @@ function App() {
             <CreateAccount />
           }/>
           <Route exact path="/edituser" element={
-            <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser}  />
+            <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser} onLogout={handleLogout} />
           }/>
           <Route exact path= "/"  element={
             <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook}  checkInBook={checkInBook}  />

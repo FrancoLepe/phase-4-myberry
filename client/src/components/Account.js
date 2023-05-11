@@ -2,16 +2,10 @@ import React from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import API_URL from "../apiConfig.js";
 
-function Account({ currentUser, setCurrentUser }) {
-    const navigate = useNavigate();
+function Account({ currentUser, setCurrentUser, onLogout}) {
+   
 
-    function handleLogout() {
-        fetch(`${API_URL}/logout`, {
-            method: "DELETE",
-        })
-            .then(setCurrentUser(''))
-            .then(navigate("/"))
-    }
+
 
     return (
         <div>
@@ -24,7 +18,7 @@ function Account({ currentUser, setCurrentUser }) {
                 <div>Phone: {currentUser.phone}</div>
                 <br />
                 <div><NavLink className='NavLink' to='/edituser'>Update My Account</NavLink></div>
-                <div><button onClick={handleLogout}>Logout</button></div>
+                <div><button onClick={onLogout}>Logout</button></div>
             </div>
         </div>
     )
