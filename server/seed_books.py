@@ -33,7 +33,7 @@ for book in parse_json['docs']:
         else:
             description = book_parse_json['description'].partition('\r')[0]
     else:
-        description = None
+        description = "Great book!"
     
     
     book_dict = dict(

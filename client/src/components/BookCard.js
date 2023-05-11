@@ -1,10 +1,20 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { NavLink } from'react-router-dom'
+import API_URL from "../apiConfig.js";
 
 function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
     let isCheckedOut = book.checkout_log
     
+    const [detailToggle, setDetailToggle] = useState(false)
+
+    function bookDetailToggle(){
+        setDetailToggle(!detailToggle)
+    }
+
+    const description = book.description
+    const truncatedDescription = description.substring(0, 50) + '...'
+
     function handleCheckOut(){
     
             const requestCheckout = {
@@ -15,7 +25,7 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
                     book_id: book.id
                 })
             };
-            fetch('/create_logs', requestCheckout)
+            fetch(`${API_URL}/create_logs`, requestCheckout)
             .then(r=> r.json())
             .then(r=>{ 
                 console.log(r)
@@ -25,8 +35,6 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
             })
     }
 
-
-
     function handleCheckIn(){
 
         let deleteId = book.checkout_id
@@ -35,32 +43,35 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
      }
-       fetch(`/create_logs/${deleteId}`, deleteCheckout)
+       fetch(`${API_URL}/create_logs/${deleteId}`, deleteCheckout)
        .then(checkInBook(book))
     }
         
     return (
-        <div className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <img src={book.image} alt={'Cover image for ' + book.title} className="object-cover w-full rounded-t-lg h96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" />
-            <div className="flex flex-col grow  p-4 ">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Author: {book.author}</p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Genre: {book.genre}</p>
-                { myBooks ? (
-                        <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckIn}>Check In</button>
-                    ) : (
-                        <div>
-                            { isCheckedOut ? (
-                                <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
-                            ) : <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
-                            }
-                        </div>
-                    )
-                }
-                
-                
-            </div>
+        <div className="bg-white p-4 rounded-lg rounded-tl-[70px]
+        w-full max-w-[240px] mx-auto my-2 cursor-pointer hover:scale-105 duration-200">
+        { detailToggle ? (null) : <img className='mx-auto max-w-[200px] h-[300px] max-h-[300px] rounded-lg rounded-tl-[50px]' src={book.image} alt={book.title} onClick={bookDetailToggle}/>}     
+        <div className= "flex gap-x-1 text-m">
+            { detailToggle ? (
+            <div className="p-4 max-w-[240px] cursor-pointer text-sm h-[300px] max-h-[300px] text-left" onClick={bookDetailToggle}>
+                <br />
+                <div><b>Title:</b> {book.title}</div>
+                <div><b>Author:</b> {book.author}</div>
+                <div><b>Genre:</b> {book.genre}</div>
+                <br />
+                <div><b>Description:</b> {truncatedDescription}</div>
+            </div>) : null}
         </div>
+
+        {(myBooks) ? (
+            <div className="flex items-center justify-center" key={book.id}>
+                <button className="flex items-center justify-center" onClick={handleCheckIn}>Return Book</button></div>) : (<div className="flex items-center justify-center" > 
+                { isCheckedOut ? (<div className="flex items-center justify-center" ><button className="flex items-center justify-center">Unavailable</button></div>) : (null)} 
+                { (currentUser && !isCheckedOut) ? (<div className="flex items-center justify-center"><button className="flex items-center justify-center" onClick={handleCheckOut}>Check Me Out</button></div>) : (null)}
+                { (!currentUser && !isCheckedOut) ? (<div className="flex items-center justify-center" ><button className="flex items-center justify-center"><NavLink to="/login" exact className="flex items-center justify-center">Login to Check Out</NavLink></button></div>) : (null)}
+                </div>)}
+        </div>
+        
     )
 }
 

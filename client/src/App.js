@@ -55,13 +55,13 @@ function App() {
   }
 
   useEffect( () => {
-    fetch('/users')
+    fetch(`${API_URL}/users`)
       .then( r => r.json() )
       .then( setUsers )
   }, [] )
 
   useEffect( () => {
-    fetch('/books')
+    fetch(`${API_URL}/books`)
       .then( r => r.json() )
       .then( setBooks )
   }, [] )
