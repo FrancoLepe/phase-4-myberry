@@ -4,7 +4,6 @@ import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
 function EditUser({ currentUser, setCurrentUser }) {
-function EditUser({ currentUser, setCurrentUser }) {
 
     const [updateFirstName, setUpdateFirstName] = useState('')
     const [updateLastName, setUpdateLastName] = useState('')
