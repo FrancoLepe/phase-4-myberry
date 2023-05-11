@@ -23,7 +23,7 @@ function EditUser({ currentUser, setCurrentUser }) {
 
     function handleUpdateUser(e) {
         e.preventDefault();
-
+        
         const updatedUser = {
             fname: updateFirstName,
             lname: updateLastName,
@@ -44,7 +44,7 @@ function EditUser({ currentUser, setCurrentUser }) {
             })
         };
         fetch(`/users/${currentUser.id}`, requestOptions)
-            .then(setCurrentUser(updatedUser))
+        .then(setCurrentUser(updatedUser))
             .then(navigate("/account")
             )
     }

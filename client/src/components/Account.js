@@ -14,13 +14,13 @@ function Account({ currentUser, setCurrentUser, onLogout }){
                     <div>Email: {currentUser.email}</div>
                     <div>Phone: {currentUser.phone}</div>
                     <br />
-                    <div><NavLink className='NavLink' exact to = '/edituser'>Update My Account</NavLink></div>
+                    <div><NavLink className='NavLink'  to = '/edituser'>Update My Account</NavLink></div>
                     <div><button>Logout</button></div>
                 </div>) : (
                 <div>
                     <br />
-                    <div><NavLink className='NavLink' exact to = '/login'>Login</NavLink></div>
-                    <div><NavLink className='NavLink' exact to = '/createaccount'>Create an Account</NavLink></div>
+                    <div><NavLink className='NavLink'  to = '/login'>Login</NavLink></div>
+                    <div><NavLink className='NavLink'  to = '/createaccount'>Create an Account</NavLink></div>
                 </div>)}
         </div>
     )
