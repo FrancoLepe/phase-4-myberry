@@ -88,7 +88,7 @@ function App() {
             <CreateAccount />
           }/>
           <Route exact path="/edituser" element={
-            <EditUser currentUser={currentUser} />
+            <EditUser currentUser={currentUser} setCurrentUser={setCurrentUser} />
           }/>
           <Route exact path= "/"  element={
             <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook}  checkInBook={checkInBook}  />

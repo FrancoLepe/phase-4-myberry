@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
-function EditUser({ currentUser }) {
+function EditUser({ currentUser, setCurrentUser }) {
 
     const [updateFirstName, setUpdateFirstName] = useState('')
     const [updateLastName, setUpdateLastName] = useState('')
@@ -24,6 +24,13 @@ function EditUser({ currentUser }) {
     function handleUpdateUser(e) {
         e.preventDefault();
 
+        const updatedUser = {
+            fname: updateFirstName,
+            lname: updateLastName,
+            email: updateEmail,
+            phone: updatePhone,
+            password: updatePassword
+        }
 
         const requestOptions = {
             method: 'PUT',
@@ -37,6 +44,7 @@ function EditUser({ currentUser }) {
             })
         };
         fetch(`/users/${currentUser.id}`, requestOptions)
+            .then(setCurrentUser(updatedUser))
             .then(navigate("/account")
             )
     }
