@@ -65,8 +65,6 @@ class Users(Resource):
                 "errors": [errors.__str__()]
             }, 422)
         return make_response(user.to_dict(), 201)
-
-
 api.add_resource(Users, '/users')
 
 
@@ -89,8 +87,6 @@ class UserById(Resource):
         db.session.commit()
         response = make_response('', 200)
         return response
-
-
 api.add_resource(UserById, '/users/<int:id>')
 
 
@@ -117,36 +113,20 @@ def update_user(user_id):
     return response
 
 
-class Login(Resource):
-    def post(self):
-        data = request.get_json()
-        email = data['email']
-        password = data['password']
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if (user.password == password):
-                session['user_id'] = user.id
-                return make_response(user.to_dict(), 200)
-        return make_response({'error': '401 Unauthorized'}, 401)
-api.add_resource(Login, '/login')
-
-
 class Books(Resource):
-
     def get(self):
-        
         books = []
         for book in Book.query.all():
             log = CheckoutLog.query.filter_by(book_id=book.id).first()
             if log:
-                x= True
-                checkout_id=log.id
+                x = True
+                checkout_id = log.id
                 user = log.user_id
             else:
                 x = False
-                checkout_id=None
+                checkout_id = None
                 user = None
-                
+
             book_dict = {
                 "id": book.id,
                 "title": book.title,
@@ -156,12 +136,11 @@ class Books(Resource):
                 "image": book.image,
                 "description": book.description,
                 "checkout_log": x,
-                "checkout_id" : checkout_id,
+                "checkout_id": checkout_id,
                 "user_id": user
             }
             books.append(book_dict)
-            
-            
+
         response = make_response(
             books,
             200,
@@ -201,6 +180,38 @@ class CreateLogsById(Resource):
         return make_response('', 200)
 api.add_resource(CreateLogsById, '/create_logs/<int:id>')
 
+
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        user = User.query.filter_by(email=email).first()
+        if user:
+            if (user.password == password):
+                session['user_id'] = user.id
+                return make_response(user.to_dict(), 200)
+        return make_response({'error': '401 Unauthorized'}, 401)
+api.add_resource(Login, '/login')
+
+
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
+api.add_resource(Logout, '/logout')
+
+
+class CheckSession(Resource):
+    def get(self):
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return user.to_dict()
+        else:
+            return {'message': '401: Not Authorized'}, 401
+
+
+api.add_resource(CheckSession, '/check_session')
 
 if __name__ == '__main__':
     app.run(port=5555)

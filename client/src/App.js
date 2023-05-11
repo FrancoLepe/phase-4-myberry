@@ -17,6 +17,21 @@ function App() {
   const [books, setBooks] = useState([])
   const [currentUser, setCurrentUser] = useState('')
 
+  useEffect(() => {
+    fetch("/check_session").then((response) => {
+      if (response.ok) {
+        response.json().
+        then((user) =>{
+          console.log(user)
+          setCurrentUser(user)});
+      }
+    });
+  }, []);
+
+
+
+
+
   const handleLogin = (user) => {
     setCurrentUser(user)
     console.log(user.fname)

@@ -5,8 +5,11 @@ function Account({ currentUser, setCurrentUser }) {
     const navigate = useNavigate();
 
     function handleLogout() {
-        setCurrentUser('')
-        navigate("/")
+        fetch("/logout", {
+            method: "DELETE",
+        })
+            .then(setCurrentUser(''))
+            .then(navigate("/"))
     }
 
     return (
