@@ -77,13 +77,16 @@ function App() {
       .then( setBooks )
   }, [] )
 
-  const navigate = useNavigate();
-  function handleLogout() {
-    fetch(`${API_URL}/logout`,{credentials: 'include'}, {
-        method: "DELETE",
-    })
-        .then(setCurrentUser(''))
-        .then(navigate("/"))
+  
+
+const navigate = useNavigate();
+function handleLogout() {
+  fetch(`${API_URL}/logout`, {
+      method: "DELETE",
+      credentials: "include",
+  })
+      .then(setCurrentUser(''))
+      .then(navigate("/"))
 }
 
 
