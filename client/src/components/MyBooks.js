@@ -25,7 +25,7 @@ function MyBooks({ currentUser, books, xx, checkInBook, checkOutBook  }){
     
     return(
     <div>
-        <div>MyBooks.js</div>
+        <div>My Books</div>
         <br />
         {/* {myBooks.map( book => <div key={book.id}>{book.title}</div>)} */}
         <BookList books={xx} currentUser={currentUser} myBooks={true} checkInBook={checkInBook}  checkOutBook={checkOutBook} />

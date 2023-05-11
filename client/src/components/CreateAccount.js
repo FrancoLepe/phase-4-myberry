@@ -8,10 +8,7 @@ import * as yup from "yup";
 
 function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
   const navigate = useNavigate();
-
   const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-
-
 
 
   const formik = useFormik({
@@ -29,55 +26,17 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
       phone: yup.number().integer().required("phone number required").typeError("Phone number should only contain digits"),
       password: yup.string().required("please enter a password"),
     }),
-    onSubmit : values => {
+    onSubmit: values => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values, null, 2)
       };
       fetch('/users', requestOptions)
-      .then(navigate("/login"))
-     
-
-
-      // history.push("/login")
+        .then(navigate("/login"))
     },
   });
 
-
-
-  //     fetch("/users", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(values, null, 2),
-  //     }).then((res) => {
-  //       if (res.status == 200) {
-  //         setRefreshPage(!refreshPage);
-  //       }
-  //     });
-  //   },
-  // });
-
-
-  // function handleCreateAccountSubmit(e) {
-  //     e.preventDefault();
-
-  //     const requestOptions = {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify({
-  //             fname: newFirstName,
-  //             lname: newLastName,
-  //             email: newEmail,
-  //             phone: newPhone,
-  //             password: newPassword
-  //         })
-  //     };
-  //     fetch('/users', requestOptions)
-  //         history.push("/login")
-  // }
 
   // function handleLogout() {
   //     fetch("/logout", {
@@ -93,33 +52,33 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
           <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
           <input id='fname' type="name" name="fname" placeholder="First Name" className={formField} onChange={formik.handleChange} value={formik.values.fname}
           />
-           {formik.touched.fname && formik.errors.fname ? (
-         <div>{formik.errors.fname}</div>
-       ) : null}
+          {formik.touched.fname && formik.errors.fname ? (
+            <div>{formik.errors.fname}</div>
+          ) : null}
 
           <label htmlFor="lname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">last name</label>
           <input id='lname' type="name" name="lname" placeholder="Last Name" className={formField} onChange={formik.handleChange} value={formik.values.lname} />
           {formik.touched.lname && formik.errors.lname ? (
-         <div>{formik.errors.lname}</div>
-       ) : null}
+            <div>{formik.errors.lname}</div>
+          ) : null}
 
           <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
           <input id='phone' type="text" name="phone" placeholder="Phone Number" className={formField} onChange={formik.handleChange} value={formik.values.phone} />
           {formik.touched.phone && formik.errors.phone ? (
-         <div>{formik.errors.phone}</div>
-       ) : null}
+            <div>{formik.errors.phone}</div>
+          ) : null}
 
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
           <input id='email' type="text" name="email" placeholder="Email Address" className={formField} onChange={formik.handleChange} value={formik.values.email} />
           {formik.touched.email && formik.errors.email ? (
-         <div>{formik.errors.email}</div>
-       ) : null}
+            <div>{formik.errors.email}</div>
+          ) : null}
 
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
           <input id='password' type="text" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
           {formik.touched.password && formik.errors.password ? (
-         <div>{formik.errors.password}</div>
-       ) : null}
+            <div>{formik.errors.password}</div>
+          ) : null}
           {/* <label htmlFor="confirmpassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">confirm password</label>
                 <input type="text" name="confirmpassword" className={formField} placeholder="Confirm Password" /> */}
 
@@ -130,7 +89,6 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
     </div>
   )
 }
-
 
 export default CreateAccount;
 
