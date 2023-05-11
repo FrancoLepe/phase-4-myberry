@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
-function EditUser({ currentUser}) {
+function EditUser({ currentUser }) {
 
     const [updateFirstName, setUpdateFirstName] = useState('')
     const [updateLastName, setUpdateLastName] = useState('')
@@ -16,7 +16,7 @@ function EditUser({ currentUser}) {
     const handleEmail = e => setUpdateEmail(e.target.value)
     const handlePhone = e => setUpdatePhone(e.target.value)
     const handlePassword = e => setUpdatePassword(e.target.value)
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 
@@ -37,10 +37,8 @@ function EditUser({ currentUser}) {
             })
         };
         fetch(`/users/${currentUser.id}`, requestOptions)
-            
-
-
-            history.push("/account")
+            .then(navigate("/account")
+            )
     }
 
     // function handleLogout() {
@@ -50,31 +48,31 @@ function EditUser({ currentUser}) {
     // }
 
     return (
-        <div className ='flex justify-center items-center'>
+        <div className='flex justify-center items-center'>
             <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <h1>Create New Account</h1>
-            <form className="space-y-6" onSubmit={handleUpdateUser}>
-                <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
-                <input type="name" name="fname" placeholder="First Name" className={formField} onChange={handleFirstName} />
+                <form className="space-y-6" onSubmit={handleUpdateUser}>
+                    <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
+                    <input type="name" name="fname" placeholder="First Name" className={formField} onChange={handleFirstName} />
 
-                <label htmlFor="lname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">last name</label>
-                <input type="name" name="lname" placeholder="Last Name" className={formField} onChange={handleLastName} />
+                    <label htmlFor="lname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">last name</label>
+                    <input type="name" name="lname" placeholder="Last Name" className={formField} onChange={handleLastName} />
 
-                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
-                <input type="text" name="phone" placeholder="Phone Number" className={formField} onChange={handlePhone} />
+                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
+                    <input type="text" name="phone" placeholder="Phone Number" className={formField} onChange={handlePhone} />
 
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
-                <input type="text" name="email" placeholder="Email Address" className={formField} onChange={handleEmail} />
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
+                    <input type="text" name="email" placeholder="Email Address" className={formField} onChange={handleEmail} />
 
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
-                <input type="text" name="password" placeholder="New Password" className={formField} onChange={handlePassword} />
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
+                    <input type="text" name="password" placeholder="New Password" className={formField} onChange={handlePassword} />
 
-                <label htmlFor="confirmpassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">confirm password</label>
-                <input type="text" name="confirmpassword" className={formField} placeholder="Confirm Password" />
+                    <label htmlFor="confirmpassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">confirm password</label>
+                    <input type="text" name="confirmpassword" className={formField} placeholder="Confirm Password" />
 
-                <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Account</button>
+                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Account</button>
 
-            </form>
+                </form>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, useHistory } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import API_URL from "../apiConfig.js";
 import NavBar from "./NavBar.js";
 
@@ -11,7 +11,7 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
     const handlePassword = e => setNewPassword(e.target.value)
     const [formErrors, setFormErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
 
 
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -21,7 +21,7 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
             console.log("successful login")
             console.log(user);
             handleLogin(user);
-            history.push("/")
+            navigate("/")
         }
     }
 
