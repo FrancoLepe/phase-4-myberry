@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, User, Book, CheckoutLog
 import random
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -156,7 +157,8 @@ class CreateLogs(Resource):
         try:
             new_log = CheckoutLog(
                 user_id=data['user_id'],
-                book_id=data['book_id']
+                book_id=data['book_id'],
+                due_date= datetime.fromtimestamp(data['due_date'])
             )
             db.session.add(new_log)
             db.session.commit()

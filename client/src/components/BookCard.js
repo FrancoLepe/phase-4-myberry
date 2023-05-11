@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import API_URL from "../apiConfig.js";
 import { Route, useNavigate } from "react-router-dom";
+import { DateTime } from 'luxon'
+
 
 function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
     const navigate = useNavigate();
@@ -17,13 +19,13 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
     const truncatedDescription = description.substring(0, 50) + '...'
 
     function handleCheckOut() {
-
         const requestCheckout = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 user_id: currentUser.id,
-                book_id: book.id
+                book_id: book.id,
+                due_date: DateTime.now().plus({ days: 14 }).toUnixInteger()
             })
         };
         fetch(`${API_URL}/create_logs`, requestCheckout)
