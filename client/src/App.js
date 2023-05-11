@@ -18,7 +18,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState('')
 
   useEffect(() => {
-    fetch(`${API_URL}/check_session`).then((response) => {
+    fetch(`${API_URL}/check_session`,{credentials: 'include'}).then((response) => {
       if (response.ok) {
         response.json().
         then((user) =>{

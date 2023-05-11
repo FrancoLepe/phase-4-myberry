@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 app.secret_key = b"\x7f\x7f(\xe8\x0c('\xa8\xa5\x82pb\t\x1d>rZ\x8c^\x7f\xbb\xe2L|"
 
-CORS(app)
+CORS(app, supports_credentials=True)
 migrate = Migrate(app, db)
 
 db.init_app(app)
@@ -199,7 +199,9 @@ api.add_resource(Login, '/login')
 
 class Logout(Resource):
     def delete(self):
+        print(f'{session}-before delete ')
         session['user_id'] = None
+        print(f'{session}-after delete ')
         return {'message': '204: No Content'}, 204
 api.add_resource(Logout, '/logout')
 
@@ -207,6 +209,7 @@ api.add_resource(Logout, '/logout')
 class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
+        print(session)
         if user:
             return user.to_dict()
         else:
