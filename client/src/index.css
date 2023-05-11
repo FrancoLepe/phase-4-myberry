@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+    @apply my-2 border hover:bg-slate-400 font-bold border-black rounded-xl px-5 py-1 flex items-center justify-center
+}

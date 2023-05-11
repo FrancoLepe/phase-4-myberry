@@ -39,7 +39,7 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
                     password: newPassword
                 })
             };
-            fetch('/login', requestOptions)
+            fetch(`${API_URL}/login`, requestOptions)
                 .then((r) => {
                     setIsLoading(false);
 

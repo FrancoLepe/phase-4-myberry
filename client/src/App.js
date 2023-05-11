@@ -18,7 +18,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState('')
 
   useEffect(() => {
-    fetch("/check_session").then((response) => {
+    fetch(`${API_URL}/check_session`).then((response) => {
       if (response.ok) {
         response.json().
         then((user) =>{
@@ -69,13 +69,13 @@ function App() {
   }
 
   useEffect( () => {
-    fetch('/users')
+    fetch(`${API_URL}/users`)
       .then( r => r.json() )
       .then( setUsers )
   }, [] )
 
   useEffect( () => {
-    fetch('/books')
+    fetch(`${API_URL}/books`)
       .then( r => r.json() )
       .then( setBooks )
   }, [] )

@@ -34,7 +34,7 @@ function EditUser({ currentUser, setCurrentUser }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(values, null, 2)
             };
-            fetch(`/users/${currentUser.id}`, requestOptions)
+            fetch(`${API_URL}/users/${currentUser.id}`, requestOptions)
                 .then(r => r.json())
                 .then(updatedUser => setCurrentUser(updatedUser))
                 .then(navigate("/account"))

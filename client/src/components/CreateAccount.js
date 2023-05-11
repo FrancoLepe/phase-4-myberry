@@ -32,7 +32,7 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values, null, 2)
       };
-      fetch('/users', requestOptions)
+      fetch(`${API_URL}/users`, requestOptions)
         .then(navigate("/login"))
     },
   });

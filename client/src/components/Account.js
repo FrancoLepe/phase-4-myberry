@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
+import API_URL from "../apiConfig.js";
 
 function Account({ currentUser, setCurrentUser }) {
     const navigate = useNavigate();
 
     function handleLogout() {
-        fetch("/logout", {
+        fetch(`${API_URL}/logout`, {
             method: "DELETE",
         })
             .then(setCurrentUser(''))
