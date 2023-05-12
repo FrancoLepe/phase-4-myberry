@@ -191,7 +191,12 @@ class Login(Resource):
         user = User.query.filter_by(email=email).first()
         if user:
             if (user.password == password):
+                print(f'{session}  ')
+                print(f'{user.id } ')
+                
                 session['user_id'] = user.id
+                print(f'{session}  ')
+                
                 return make_response(user.to_dict(), 200)
         return make_response({'error': '401 Unauthorized'}, 401)
 api.add_resource(Login, '/login')
