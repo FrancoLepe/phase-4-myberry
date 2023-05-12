@@ -10,7 +10,7 @@ function Account({ currentUser, setCurrentUser, onLogout }) {
 
     return (
 
-        <div className="  grid place-items-center  bg-yellow-50">
+        <div className="  grid place-items-center  bg-yellow-50 text-2xl">
             <div>
                 <h2><b>Logged in as:</b></h2>
             </div>
