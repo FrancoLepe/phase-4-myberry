@@ -8,7 +8,7 @@ import * as yup from "yup";
 function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
 
     const navigate = useNavigate();
-    const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+    const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 
     const formik = useFormik({
         initialValues: {
@@ -44,23 +44,23 @@ function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
     return (
         <div className="grid place-items-center  bg-yellow-50 ">
 
-            <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 ">
+            <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
                 <h1>Edit User Account</h1>
                 <form className="space-y-6" onSubmit={formik.handleSubmit}>
-                    <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
+                    <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 ">first name</label>
                     <input id='fname' type="name" name="fname" placeholder="First Name" className={formField} onChange={formik.handleChange} value={formik.values.fname}
                     />
                     {formik.touched.fname && formik.errors.fname ? (
                         <div>{formik.errors.fname}</div>
                     ) : null}
 
-                    <label htmlFor="lname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">last name</label>
+                    <label htmlFor="lname" className="block mb-2 text-sm font-medium text-gray-900 ">last name</label>
                     <input id='lname' type="name" name="lname" placeholder="Last Name" className={formField} onChange={formik.handleChange} value={formik.values.lname} />
                     {formik.touched.lname && formik.errors.lname ? (
                         <div>{formik.errors.lname}</div>
                     ) : null}
 
-                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
+                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">phone</label>
                     <input id='phone' type="text" name="phone" placeholder="Phone Number" className={formField} onChange={formik.handleChange} value={formik.values.phone} />
                     {formik.touched.phone && formik.errors.phone ? (
                         <div>{formik.errors.phone}</div>
@@ -72,13 +72,13 @@ function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
                         <div>{formik.errors.email}</div>
                     ) : null}
 
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">password</label>
                     <input id='password' type="text" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
                     {formik.touched.password && formik.errors.password ? (
                         <div>{formik.errors.password}</div>
                     ) : null}
 
-                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Account</button>
+                    <button type="submit" className="w-full text-white-100 bg-emerald-400 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update Account</button>
                 </form>
             </div>
             <br/>
