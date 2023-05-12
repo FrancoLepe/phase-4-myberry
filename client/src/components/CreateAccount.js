@@ -40,9 +40,9 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
 
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <h1>Create New Account</h1>
+    <div className='flex justify-center items-center  bg-yellow-50'>
+    <div  className="  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+     <h1>Create New Account</h1>
         <form className="space-y-6" onSubmit={formik.handleSubmit}>
           <label htmlFor="fname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first name</label>
           <input id='fname' type="name" name="fname" placeholder="First Name" className={formField} onChange={formik.handleChange} value={formik.values.fname}

@@ -48,16 +48,17 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
 
     const renderButton = () => {
+        
         if (myBooks) {
-            return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckIn}>Check In</button>
+            return <button className="flex items-center justify-center  text-white bg-blue-500" onClick={handleCheckIn}>Check In</button>
         } else {
             if (isCheckedOut) {
-                return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow">Unavailable</button>
+                return <button className="flex items-center justify-center  text-white bg-blue-500 " >Unavailable</button>
             } else {
                 if (currentUser) {
-                    return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={handleCheckOut}>Check Out</button>
+                    return <button className="flex items-center justify-center  text-white bg-blue-500" onClick={handleCheckOut}>Check Out</button>
                 } else {
-                    return <button className="px-4 py-2 text-sm text-blue-100 bg-blue-500 rounded shadow" onClick={() => navigate("/login")}>Check Out</button>
+                    return <button className="flex items-center justify-center  text-white bg-blue-500 " onClick={() => navigate("/login")}>Login to Check Out</button>
                 }
             }
         }
@@ -79,7 +80,7 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
                         <div><b>Description:</b> {truncatedDescription}</div>
                     </div>) : null}
             </div>
-            <div>{renderButton()}</div>
+            <div className="flex items-center justify-center">{renderButton()}</div>
         </div>
     )
 }
