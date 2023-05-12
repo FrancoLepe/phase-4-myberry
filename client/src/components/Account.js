@@ -20,8 +20,8 @@ function Account({ currentUser, setCurrentUser, onLogout }) {
             <div>Phone: {currentUser.phone}</div>
             <br/>
             <div className="  grid place-items-center">
-                <button className=" text-white bg-blue-500 " onClick={() => navigate("/edituser")}>Update My Account</button>
-                <button className=" text-white bg-blue-500 " onClick={onLogout}>Logout</button>
+                <button className=" text-white-100 bg-emerald-400 hover:bg-emerald-600" onClick={() => navigate("/edituser")}>Update My Account</button>
+                <button className=" text-white-100 bg-emerald-400 hover:bg-emerald-600" onClick={onLogout}>Logout</button>
             </div>
         </div>
     )
