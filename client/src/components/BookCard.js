@@ -50,7 +50,9 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
     const renderButton = () => {
         
         if (myBooks) {
-            return <button className="flex items-center justify-center  text-white-100 bg-sky-400 hover:bg-sky-600 drop-shadow-2xl" onClick={handleCheckIn}>Check In</button>
+            return( 
+            
+            <div className="  grid place-items-center font-normal text-base" ><p>Due: {book.due_date}</p> <button className="flex items-center justify-center  text-white-100 bg-sky-400 hover:bg-sky-600 drop-shadow-2xl" onClick={handleCheckIn}>Check In</button></div>)
         } else {
             if (isCheckedOut) {
                 return <button className="flex items-center justify-center  text-white-100 bg-slate-300 hover:bg-slate-500 drop-shadow-2xl" >Unavailable</button>
