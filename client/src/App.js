@@ -11,11 +11,25 @@ import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
-
+  const navigate = useNavigate();
 
   const [users, setUsers] = useState([])
   const [books, setBooks] = useState([])
   const [currentUser, setCurrentUser] = useState('')
+
+
+  useEffect(() => {
+    fetch(`${API_URL}/users`)
+      .then(r => r.json())
+      .then(setUsers)
+  }, [])
+
+  useEffect(() => {
+    fetch(`${API_URL}/books`)
+      .then(r => r.json())
+      .then(setBooks)
+  }, [])
+
 
   useEffect(() => {
     fetch(`${API_URL}/check_session`, { credentials: 'include' })
@@ -32,12 +46,21 @@ function App() {
 
 
 
-
-
   const handleLogin = (user) => {
     setCurrentUser(user)
     console.log(user.fname)
   }
+
+  
+  function handleLogout() {
+    fetch(`${API_URL}/logout`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then(setCurrentUser(''))
+      .then(navigate("/"))
+  }
+
 
   function checkOutBook(book) {
     const updatedBooks = books.map(bookObj => {
@@ -67,29 +90,20 @@ function App() {
     setBooks(updatedBooks);
   }
 
-  useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then(r => r.json())
-      .then(setUsers)
-  }, [])
 
-  useEffect(() => {
-    fetch(`${API_URL}/books`)
-      .then(r => r.json())
-      .then(setBooks)
-  }, [])
+  function deleteAccount() {
+    const confirmBox = window.confirm(
+        `Do you really want to delete user: ${currentUser.fname} ${currentUser.lname}?`
+    )
+    if (confirmBox === true) {
+        mybooks.map(book => checkInBook(book))
+        fetch(`${API_URL}/users/${currentUser.id}`,
+            { method: 'DELETE', })
+            .then(() => handleLogout())
+    }
+}
 
 
-
-  const navigate = useNavigate();
-  function handleLogout() {
-    fetch(`${API_URL}/logout`, {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then(setCurrentUser(''))
-      .then(navigate("/"))
-  }
 
 
   const mybooks = books.filter(bookObj => bookObj.user_id === currentUser.id)
@@ -111,7 +125,7 @@ function App() {
           <CreateAccount />
         } />
         <Route exact path="/edituser" element={
-          <EditUser currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
+          <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser}   onDeleteAccount={deleteAccount}/>
         } />
         <Route exact path="/" element={
           <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />

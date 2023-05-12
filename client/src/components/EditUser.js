@@ -5,12 +5,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 
-function EditUser({ currentUser, setCurrentUser, onLogout }) {
-
+function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
 
     const navigate = useNavigate();
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-
 
     const formik = useFormik({
         initialValues: {
@@ -39,19 +37,6 @@ function EditUser({ currentUser, setCurrentUser, onLogout }) {
                 .then(navigate("/account"))
         },
     });
-
-    function deleteAccount() {
-        const confirmBox = window.confirm(
-            `Do you really want to delete user: ${currentUser.fname} ${currentUser.lname}?`
-        )
-        if (confirmBox === true) {
-            fetch(`${API_URL}/users/${currentUser.id}`,
-                { method: 'DELETE', })
-                .then(() => onLogout())
-        }
-    }
-
-
 
 
 
@@ -98,7 +83,7 @@ function EditUser({ currentUser, setCurrentUser, onLogout }) {
             </div>
             <br/>
             <div className='pb-6'>
-                <button type="submit" className="flex items-center justify-center  text-white bg-red-500 " onClick={deleteAccount}>Delete Account</button>
+                <button type="submit" className="flex items-center justify-center  text-white bg-red-500 " onClick={onDeleteAccount}>Delete Account</button>
             </div>
         </div>
     )
