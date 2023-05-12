@@ -23,12 +23,52 @@
 - This is a digital library user interface tool
 
 ## Functionality
-- Landing page:
-  - navigate to signin
-  - see all books that exist in the library:
-    - books that are already checked out are greyed out as "unavailable'
-    - books that are available to check-out indicate "log-in to check out"
-    
 
+- Navigation 
+  - If no user logged in: 
+      - Show 'Login' button
+  - If user logged in:
+      - Show 'My Books' 
+      - Show 'My account'
+      - Show user first and last name
+
+
+- Landing page:
+  - If no user logged in: 
+    - see all books that exist in the library:
+      - books that are already checked out are greyed out as "unavailable'
+      - books that are available to check-out indicate "log-in to check out"
+  - If user logged in:
+    - see all books that exist in the library:
+      - books that are already checked out are greyed out as "unavailable'
+      - user can check-out books
+
+
+- Login: 
+  - SigIn with existing credentials
+  - create new account
+
+- Create new account:
+  - all fields are required
+  - email must be unique
+  - redirects to Landing page
+
+- My Books:
+  - Shows user's checked out books
+  - User can check-in books
+
+- My Account:
+  - Print user details
+  - User can update user details
+  - user can log out
+
+- Edit User Account:
+  - User can edit user details
+  - Delete account 
+    - all user's books are automatically checked-in upon user delete
+    - logs user out
+    - deletes account from database
+    - redirects to homepage
+  
 
  
