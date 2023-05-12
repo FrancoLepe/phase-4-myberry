@@ -63,9 +63,10 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
     }
 
     return (
-        <div className='flex justify-center items-center'><div  className="  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className='flex justify-center items-center  bg-yellow-50'>
+            <div  className="  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <form className="space-y-6" onSubmit={handleLoginSubmit}>
-                <h5 className="text-xl font-medium text-gray-900 dark:text-white">Log in</h5>
+                <h1 >Log in</h1>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                 <input
                     type="email"

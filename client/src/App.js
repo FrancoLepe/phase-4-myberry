@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Home from './components/Home'
 import MyBooks from './components/MyBooks'
 import Account from './components/Account'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 import EditUser from './components/EditUser'
-import { BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import API_URL from "./apiConfig.js";
 import NavBar from './components/NavBar';
 import './App.css';
@@ -18,14 +18,16 @@ function App() {
   const [currentUser, setCurrentUser] = useState('')
 
   useEffect(() => {
-    fetch(`${API_URL}/check_session`,{credentials: 'include'}).then((response) => {
-      if (response.ok) {
-        response.json().
-        then((user) =>{
-          console.log(user)
-          setCurrentUser(user)});
-      }
-    });
+    fetch(`${API_URL}/check_session`, { credentials: 'include' })
+      .then((response) => {
+        if (response.ok) {
+          response.json()
+            .then((user) => {
+              console.log(user)
+              setCurrentUser(user)
+            });
+        }
+      });
   }, []);
 
 
@@ -65,57 +67,57 @@ function App() {
     setBooks(updatedBooks);
   }
 
-  useEffect( () => {
+  useEffect(() => {
     fetch(`${API_URL}/users`)
-      .then( r => r.json() )
-      .then( setUsers )
-  }, [] )
+      .then(r => r.json())
+      .then(setUsers)
+  }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     fetch(`${API_URL}/books`)
-      .then( r => r.json() )
-      .then( setBooks )
-  }, [] )
+      .then(r => r.json())
+      .then(setBooks)
+  }, [])
 
-  
 
-const navigate = useNavigate();
-function handleLogout() {
-  fetch(`${API_URL}/logout`, {
+
+  const navigate = useNavigate();
+  function handleLogout() {
+    fetch(`${API_URL}/logout`, {
       method: "DELETE",
       credentials: "include",
-  })
+    })
       .then(setCurrentUser(''))
       .then(navigate("/"))
-}
+  }
 
 
-  const mybooks = books.filter(bookObj => bookObj.user_id ===currentUser.id)
- 
+  const mybooks = books.filter(bookObj => bookObj.user_id === currentUser.id)
+
 
   return (
-    <div className="App bg-yellow-50">
-      
-        <NavBar currentUser={currentUser} />
-        <Routes>
-          <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser} books={books}  xx={mybooks} checkInBook={checkInBook}  checkOutBook={checkOutBook}/> }/>
-          <Route exact path="/account" element={
-            <Account currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
-          }/>
-          <Route exact path="/login" element={ 
-            <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin}/>
-          }/>
-          <Route exact path="/createaccount" element={
-            <CreateAccount />
-          }/>
-          <Route exact path="/edituser" element={
-            <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser} onLogout={handleLogout} />
-          }/>
-          <Route exact path= "/"  element={
-            <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook}  checkInBook={checkInBook}  />
-          }/>
-        </Routes>
-        
+    <div className="App bg-yellow-50 h-screen">
+
+      <NavBar currentUser={currentUser} />
+      <Routes>
+        <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser} books={books} xx={mybooks} checkInBook={checkInBook} checkOutBook={checkOutBook} />} />
+        <Route exact path="/account" element={
+          <Account currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
+        } />
+        <Route exact path="/login" element={
+          <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin} />
+        } />
+        <Route exact path="/createaccount" element={
+          <CreateAccount />
+        } />
+        <Route exact path="/edituser" element={
+          <EditUser currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
+        } />
+        <Route exact path="/" element={
+          <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />
+        } />
+      </Routes>
+
     </div>
   );
 }
