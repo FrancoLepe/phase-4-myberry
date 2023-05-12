@@ -32,6 +32,7 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
         try {
             const requestOptions = {
                 method: 'POST',
+                credentials: "include",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     email: newEmail,
