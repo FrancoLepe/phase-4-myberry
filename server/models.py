@@ -60,7 +60,7 @@ class Book(db.Model, SerializerMixin):
 class CheckoutLog(db.Model, SerializerMixin):
     __tablename__='checkout_logs'
     
-    serialize_rules = ('-book', '-user', '-checkout_date', '-due_date')
+    serialize_rules = ('-book', '-user', '-checkout_date')
     
 
     id=db.Column(db.Integer, primary_key=True)
