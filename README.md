@@ -56,6 +56,7 @@
 - My Books:
   - Shows user's checked out books
   - User can check-in books
+  - Due date for book to be checked back in
 
 - My Account:
   - Print user details
