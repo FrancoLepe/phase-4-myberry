@@ -66,8 +66,8 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
     return (
 
-        <div className="bg-white p-4 rounded-lg rounded-tl-[70px]
-        w-full max-w-[240px] mx-auto my-2 cursor-pointer hover:scale-105 duration-200">
+        <div className="bg-amber-50 p-4 rounded-lg rounded-tl-[70px]
+        w-full max-w-[240px] mx-auto my-2 cursor-pointer hover:scale-105 duration-200 drop-shadow-2xl">
             {detailToggle ? (null) : <img className=' mb-3 mx-auto max-w-[200px] h-[300px] max-h-[300px] rounded-lg rounded-tl-[50px]' src={book.image} alt={book.title} onClick={bookDetailToggle} />}
             <div className="flex gap-x-1 text-m">
                 {detailToggle ? (

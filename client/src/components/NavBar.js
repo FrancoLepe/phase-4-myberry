@@ -9,7 +9,7 @@ function NavBar({ currentUser }) {
 
     const navigate = useNavigate();
 
-    const navClass = "block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+    const navClass = "block py-2 pl-3 pr-4 text-white bg-blue-700  text-2xl font-bold rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
     // const navClass = "rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
     return (
      
