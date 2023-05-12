@@ -54,9 +54,11 @@ with app.app_context():
     while len(book_pick) > 10:
         rand_user = random.choice(User.query.all())
         rand_book=random.choice(book_pick)
+        due_date = faker.future_datetime('+14d')
         checkout_log_data = CheckoutLog(
             book_id= rand_book,
-            user_id= rand_user.id
+            user_id= rand_user.id,
+            due_date= due_date
         )
         
         book_pick.remove(rand_book)
