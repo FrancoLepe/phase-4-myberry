@@ -123,10 +123,13 @@ class Books(Resource):
                 x = True
                 checkout_id = log.id
                 user = log.user_id
+                due_date= log.due_date
             else:
                 x = False
                 checkout_id = None
                 user = None
+                due_date= None
+                
 
             book_dict = {
                 "id": book.id,
@@ -138,7 +141,8 @@ class Books(Resource):
                 "description": book.description,
                 "checkout_log": x,
                 "checkout_id": checkout_id,
-                "user_id": user
+                "user_id": user,
+                "due_date": due_date
             }
             books.append(book_dict)
 

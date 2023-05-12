@@ -68,6 +68,7 @@ function App() {
         bookObj.checkout_log = true;
         bookObj.checkout_id = book.id;
         bookObj.user_id = book.user_id;
+        bookObj.due_date = book.due_date;
         return bookObj;
       } else {
         return bookObj;
@@ -82,6 +83,7 @@ function App() {
         bookObj.checkout_log = false;
         bookObj.checkout_id = null;
         bookObj.user_id = null;
+        bookObj.due_date = null;
         return bookObj;
       } else {
         return bookObj;
