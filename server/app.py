@@ -75,26 +75,42 @@ class UserById(Resource):
         response = make_response('', 200)
         return response
     
-    def put(self,id):
-        user = User.query.get(id)
-        user.fname = request.json.get("fname")
-        user.lname = request.json.get("lname")
-        user.email = request.json.get("email")
-        user.phone = request.json.get("phone")
-        db.session.commit()
-        user_dict = {
-            "id": user.id,
-            "fname": user.fname,
-            "lname": user.lname,
-            "email": user.email,
-            "phone": user.phone
-        }
-        response = make_response(
-            user_dict,
-            200,
-            {"Content-Type": "application/json"}
-        )
-        return response
+    
+    def patch(self,id):
+        data = request.get_json()
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({'error': 'user not found'}, 404)
+        try:
+            for attr in data:
+                setattr(user, attr, data[attr])
+            db.session.add(user)
+            db.session.commit()
+        except Exception as ex:
+            return make_response({'error': [ex.__str__()]}, 422)
+        return make_response(user.to_dict(),202)
+
+    
+    # def put(self,id):
+    #     user = User.query.get(id)
+    #     user.fname = request.json.get("fname")
+    #     user.lname = request.json.get("lname")
+    #     user.email = request.json.get("email")
+    #     user.phone = request.json.get("phone")
+    #     db.session.commit()
+    #     user_dict = {
+    #         "id": user.id,
+    #         "fname": user.fname,
+    #         "lname": user.lname,
+    #         "email": user.email,
+    #         "phone": user.phone
+    #     }
+    #     response = make_response(
+    #         user_dict,
+    #         200,
+    #         {"Content-Type": "application/json"}
+    #     )
+    #     return response
 api.add_resource(UserById, '/users/<int:id>')
 
 

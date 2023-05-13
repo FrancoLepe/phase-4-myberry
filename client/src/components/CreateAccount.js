@@ -69,7 +69,7 @@ function CreateAccount() {
           ) : null}
 
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">password</label>
-          <input id='password' type="text" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
+          <input id='password' type="password" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
           {formik.touched.password && formik.errors.password ? (
             <div>{formik.errors.password}</div>
           ) : null}

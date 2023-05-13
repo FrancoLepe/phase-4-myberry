@@ -16,7 +16,7 @@ function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
             lname: currentUser.lname,
             email: currentUser.email,
             phone: currentUser.phone,
-            password: ""
+            password: currentUser.password
         },
         validationSchema: yup.object({
             email: yup.string().email("Invalid email").required("Must enter email"),
@@ -27,7 +27,7 @@ function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
         }),
         onSubmit: values => {
             const requestOptions = {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(values, null, 2)
             };
@@ -73,7 +73,7 @@ function EditUser({ currentUser, setCurrentUser, onDeleteAccount}) {
                     ) : null}
 
                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">password</label>
-                    <input id='password' type="text" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
+                    <input id='password' type="password" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
                     {formik.touched.password && formik.errors.password ? (
                         <div>{formik.errors.password}</div>
                     ) : null}
