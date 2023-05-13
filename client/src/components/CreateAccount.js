@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
-import NavBar from "./NavBar.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 
-function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
+function CreateAccount() {
   const navigate = useNavigate();
   const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 

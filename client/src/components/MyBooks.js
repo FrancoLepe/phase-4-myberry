@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import BookList from './BookList'
 
-function MyBooks({ currentUser, books, xx, checkInBook, checkOutBook }) {
+function MyBooks({ currentUser, myCheckedOut, checkInBook, checkOutBook }) {
 
-  const [myCheckedOutBooks, setmyCheckedOutBooks] = useState([])
 
 
   return (
       <div className="container mx-auto bg-amber-200 rounded-xl border p-8 drop-shadow-3xl font-bold text-2xl">
         <h1>My Books</h1>
-        <BookList books={xx} currentUser={currentUser} myBooks={true} checkInBook={checkInBook} checkOutBook={checkOutBook} />
+        <BookList books={myCheckedOut} currentUser={currentUser} myBooks={true} checkInBook={checkInBook} checkOutBook={checkOutBook} />
     </div>
   )
 }

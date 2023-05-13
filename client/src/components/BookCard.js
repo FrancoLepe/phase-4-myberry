@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import API_URL from "../apiConfig.js";
-import { Route, useNavigate } from "react-router-dom";
-import { DateTime } from 'luxon'
+import { useNavigate } from "react-router-dom";
 
 
 function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
@@ -25,18 +24,17 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
             body: JSON.stringify({
                 user_id: currentUser.id,
                 book_id: book.id,
-                due_date: DateTime.now().plus({ days: 14 }).toUnixInteger()
             })
         };
         fetch(`${API_URL}/create_logs`, requestCheckout)
             .then(r => r.json())
             .then(r => {
+                console.log(r)
                 checkOutBook(r)
             })
     }
 
     function handleCheckIn() {
-
         let deleteId = book.checkout_id
         const deleteCheckout = {
             method: 'DELETE',
@@ -48,7 +46,6 @@ function BookCard({ book, currentUser, myBooks, checkOutBook, checkInBook }) {
 
 
     const renderButton = () => {
-        
         if (myBooks) {
             return( 
             
