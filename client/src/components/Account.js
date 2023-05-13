@@ -1,8 +1,7 @@
 import React from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
-import API_URL from "../apiConfig.js";
+import { useNavigate } from "react-router-dom";
 
-function Account({ currentUser, setCurrentUser, onLogout }) {
+function Account({ currentUser, onLogout }) {
 
     const navigate = useNavigate();
 

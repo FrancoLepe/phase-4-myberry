@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from 'react-router-dom';
 import API_URL from "../apiConfig.js";
-import NavBar from "./NavBar.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 
-function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
+function CreateAccount() {
   const navigate = useNavigate();
   const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 
@@ -70,7 +69,7 @@ function CreateAccount({ currentUser, onLogout, onCreateAccount }) {
           ) : null}
 
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">password</label>
-          <input id='password' type="text" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
+          <input id='password' type="password" name="password" placeholder="New Password" className={formField} onChange={formik.handleChange} value={formik.values.password} />
           {formik.touched.password && formik.errors.password ? (
             <div>{formik.errors.password}</div>
           ) : null}

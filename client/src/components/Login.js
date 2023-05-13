@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import API_URL from "../apiConfig.js";
-import NavBar from "./NavBar.js";
 
-function Login({ currentUser, setCurrentUser, handleLogin }) {
+function Login({  handleLogin }) {
 
     const [newEmail, setNewEmail] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -18,7 +17,6 @@ function Login({ currentUser, setCurrentUser, handleLogin }) {
 
     function handleLoginResult(user) {
         if (user.hasOwnProperty('id')) {
-            console.log(user);
             handleLogin(user);
             navigate("/")
         }

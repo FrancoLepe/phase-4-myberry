@@ -3,8 +3,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, User, Book, CheckoutLog
-import random
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -24,30 +23,17 @@ def index():
     return '<h1>myBerry API is running!</h1>'
 
 
-@app.route('/users', methods=['GET'])
-def get_users():
-    users = []
-    for user in User.query.all():
-        user_dict = {
-            "id": user.id,
-            "fname": user.fname,
-            "lname": user.lname,
-            "email": user.email,
-            "phone": user.phone,
-            "role": user.role,
-            "created_at": user.created_at
-        }
-        users.append(user_dict)
-
-    response = make_response(
-        users,
-        200,
-        {"Content-Type": "application/json"}
-    )
-    return response
-
 
 class Users(Resource):
+    def get(self):
+        users = [user.to_dict() for user in User.query.all()]
+        response = make_response(
+            users,
+            200,
+            {"Content-Type": "application/json"}
+        )
+        return response
+
     def post(self):
         data = request.get_json()
         try:
@@ -88,30 +74,25 @@ class UserById(Resource):
         db.session.commit()
         response = make_response('', 200)
         return response
+    
+    
+    def patch(self,id):
+        data = request.get_json()
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({'error': 'user not found'}, 404)
+        try:
+            for attr in data:
+                setattr(user, attr, data[attr])
+            db.session.add(user)
+            db.session.commit()
+        except Exception as ex:
+            return make_response({'error': [ex.__str__()]}, 422)
+        return make_response(user.to_dict(),202)
+
+    
 api.add_resource(UserById, '/users/<int:id>')
 
-
-@app.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    user = User.query.get(user_id)
-    user.fname = request.json.get("fname")
-    user.lname = request.json.get("lname")
-    user.email = request.json.get("email")
-    user.phone = request.json.get("phone")
-    db.session.commit()
-    user_dict = {
-        "id": user.id,
-        "fname": user.fname,
-        "lname": user.lname,
-        "email": user.email,
-        "phone": user.phone
-    }
-    response = make_response(
-        user_dict,
-        200,
-        {"Content-Type": "application/json"}
-    )
-    return response
 
 
 class Books(Resource):
@@ -162,21 +143,28 @@ class CreateLogs(Resource):
             new_log = CheckoutLog(
                 user_id=data['user_id'],
                 book_id=data['book_id'],
-                due_date= datetime.fromtimestamp(data['due_date'])
+                due_date= datetime.utcnow() + timedelta(days=14)
             )
             db.session.add(new_log)
             db.session.commit()
         except Exception as errors:
             return make_response({
                 "errors": [errors.__str__()]
-            }, 422)
-        new_log_dict = new_log.to_dict()
-        print(new_log_dict)
+            }, 422)        
+        new_log_dict = {
+            "user_id": new_log.user_id,
+            "due_date": new_log.due_date,
+            "book_id": new_log.book_id,
+            "id": new_log.id
+        }
+        
         return make_response(new_log_dict, 201)
 api.add_resource(CreateLogs, '/create_logs')
 
 
 class CreateLogsById(Resource):
+    
+    
     def delete(self, id):
         log = CheckoutLog.query.filter_by(id=id).first()
         if not log:
@@ -195,11 +183,7 @@ class Login(Resource):
         user = User.query.filter_by(email=email).first()
         if user:
             if (user.password == password):
-                print(f'{session}  ')
-                print(f'{user.id } ')
-                
                 session['user_id'] = user.id
-                print(f'{session}  ')
                 
                 return make_response(user.to_dict(), 200)
         return make_response({'error': '401 Unauthorized'}, 401)
@@ -208,12 +192,9 @@ api.add_resource(Login, '/login')
 
 class Logout(Resource):
     def delete(self):
-        print(f'{session}-before delete ')
         session['user_id'] = None
-        # session.clear()
-        # session.pop('user_id', None)
+
         
-        print(f'{session}-after delete ')
         return {'message': '204: No Content'}, 204
 api.add_resource(Logout, '/logout')
 
@@ -221,7 +202,6 @@ api.add_resource(Logout, '/logout')
 class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
-        print(session)
         if user:
             return user.to_dict()
         else:

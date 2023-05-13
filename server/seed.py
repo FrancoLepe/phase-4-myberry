@@ -3,6 +3,8 @@ from app import app
 from models import db, User, Book, CheckoutLog
 import random
 import json
+from datetime import datetime, timedelta
+
 
 faker = Faker()
 
@@ -54,7 +56,7 @@ with app.app_context():
     while len(book_pick) > 10:
         rand_user = random.choice(User.query.all())
         rand_book=random.choice(book_pick)
-        due_date = faker.future_datetime('+14d')
+        due_date = datetime.utcnow() + timedelta(days=14)
         checkout_log_data = CheckoutLog(
             book_id= rand_book,
             user_id= rand_user.id,

@@ -9,7 +9,6 @@ function BookList({ books, currentUser, myBooks, checkOutBook, checkInBook }) {
         return <BookCard key={bookObj.id} book={bookObj} currentUser={currentUser} myBooks={myBooks} checkOutBook={checkOutBook} checkInBook={checkInBook} />
     })
 
-    //   grid-rows-2 , gap-y-2
 
     return (
         <div>

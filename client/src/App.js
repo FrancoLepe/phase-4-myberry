@@ -13,16 +13,9 @@ import './App.css';
 function App() {
   const navigate = useNavigate();
 
-  const [users, setUsers] = useState([])
   const [books, setBooks] = useState([])
   const [currentUser, setCurrentUser] = useState('')
 
-
-  useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then(r => r.json())
-      .then(setUsers)
-  }, [])
 
   useEffect(() => {
     fetch(`${API_URL}/books`)
@@ -37,7 +30,6 @@ function App() {
         if (response.ok) {
           response.json()
             .then((user) => {
-              console.log(user)
               setCurrentUser(user)
             });
         }
@@ -48,7 +40,6 @@ function App() {
 
   const handleLogin = (user) => {
     setCurrentUser(user)
-    console.log(user.fname)
   }
 
   
@@ -116,12 +107,12 @@ function App() {
 
       <NavBar currentUser={currentUser} />
       <Routes>
-        <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser} books={books} xx={mybooks} checkInBook={checkInBook} checkOutBook={checkOutBook} />} />
+        <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser}  myCheckedOut={mybooks} checkInBook={checkInBook} checkOutBook={checkOutBook} />} />
         <Route exact path="/account" element={
-          <Account currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
+          <Account currentUser={currentUser}  onLogout={handleLogout} />
         } />
         <Route exact path="/login" element={
-          <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin} />
+          <Login  handleLogin={handleLogin} />
         } />
         <Route exact path="/createaccount" element={
           <CreateAccount />
@@ -130,7 +121,7 @@ function App() {
           <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser}   onDeleteAccount={deleteAccount}/>
         } />
         <Route exact path="/" element={
-          <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />
+          <Home books={books} currentUser={currentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />
         } />
       </Routes>
 
