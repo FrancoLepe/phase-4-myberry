@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
-function Account({ currentUser, setCurrentUser, onLogout }) {
+function Account({ currentUser, onLogout }) {
 
     const navigate = useNavigate();
 

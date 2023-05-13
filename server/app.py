@@ -91,26 +91,6 @@ class UserById(Resource):
         return make_response(user.to_dict(),202)
 
     
-    # def put(self,id):
-    #     user = User.query.get(id)
-    #     user.fname = request.json.get("fname")
-    #     user.lname = request.json.get("lname")
-    #     user.email = request.json.get("email")
-    #     user.phone = request.json.get("phone")
-    #     db.session.commit()
-    #     user_dict = {
-    #         "id": user.id,
-    #         "fname": user.fname,
-    #         "lname": user.lname,
-    #         "email": user.email,
-    #         "phone": user.phone
-    #     }
-    #     response = make_response(
-    #         user_dict,
-    #         200,
-    #         {"Content-Type": "application/json"}
-    #     )
-    #     return response
 api.add_resource(UserById, '/users/<int:id>')
 
 
@@ -163,7 +143,7 @@ class CreateLogs(Resource):
             new_log = CheckoutLog(
                 user_id=data['user_id'],
                 book_id=data['book_id'],
-                due_date= datetime.now() + timedelta(days=14)
+                due_date= datetime.utcnow() + timedelta(days=14)
             )
             db.session.add(new_log)
             db.session.commit()

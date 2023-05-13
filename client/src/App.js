@@ -107,12 +107,12 @@ function App() {
 
       <NavBar currentUser={currentUser} />
       <Routes>
-        <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser} books={books} myCheckedOut={mybooks} checkInBook={checkInBook} checkOutBook={checkOutBook} />} />
+        <Route exact path="/mybooks" element={<MyBooks currentUser={currentUser}  myCheckedOut={mybooks} checkInBook={checkInBook} checkOutBook={checkOutBook} />} />
         <Route exact path="/account" element={
-          <Account currentUser={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />
+          <Account currentUser={currentUser}  onLogout={handleLogout} />
         } />
         <Route exact path="/login" element={
-          <Login currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogin={handleLogin} />
+          <Login  handleLogin={handleLogin} />
         } />
         <Route exact path="/createaccount" element={
           <CreateAccount />
@@ -121,7 +121,7 @@ function App() {
           <EditUser currentUser={currentUser}  setCurrentUser={setCurrentUser}   onDeleteAccount={deleteAccount}/>
         } />
         <Route exact path="/" element={
-          <Home books={books} currentUser={currentUser} setCurrentUser={setCurrentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />
+          <Home books={books} currentUser={currentUser} checkOutBook={checkOutBook} checkInBook={checkInBook} />
         } />
       </Routes>
 
