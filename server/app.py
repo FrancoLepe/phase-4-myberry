@@ -13,7 +13,10 @@ app.json.compact = False
 app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # Replace with your own secret key
 jwt = JWTManager(app)
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000", "supports_credentials": True}}, allow_headers=["Content-Type", "Authorization"], methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000", "supports_credentials": True}},
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+
 
 
 
