@@ -16,50 +16,46 @@ function Login({  handleLogin }) {
     const formField = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 
     function handleLoginResult(user) {
-        if (user.hasOwnProperty('id')) {
-            handleLogin(user);
-            navigate("/")
+        if (user.hasOwnProperty('access_token')) {
+          handleLogin(user.user);
+          localStorage.setItem('access_token', user.access_token);
+          navigate("/");
         }
-    }
+      }
+      
 
-    function handleLoginSubmit(e) {
+      function handleLoginSubmit(e) {
         e.preventDefault();
         setIsLoading(true);
-
-
+      
         try {
-            const requestOptions = {
-                method: 'POST',
-                credentials: "include",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: newEmail,
-                    password: newPassword
-                })
-            };
-            fetch(`${API_URL}/login`, requestOptions)
-                .then((r) => {
-                    setIsLoading(false);
-
-                    if (r.ok) {
-                        r.json().then((user) => {
-                            handleLoginResult(user);
-                            
-                        })
-                    } else {
-                        r.json().then((err) => {
-                            setFormErrors(err.error)
-                        });
-                    }
-                })
-            
-            
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: newEmail,
+              password: newPassword,
+            }),
+          };
+          fetch(`${API_URL}/login`, requestOptions)
+            .then((response) => {
+              setIsLoading(false);
+              if (response.ok) {
+                response.json().then((data) => {
+                  handleLoginResult(data);
+                  localStorage.setItem('access_token', data.access_token);
+                });
+              } else {
+                response.json().then((err) => {
+                  setFormErrors(err.error);
+                });
+              }
+            });
         } catch (err) {
-            setFormErrors(err.error);
+          setFormErrors(err.error);
         }
-
-
-    }
+      }
+      
 
     return (
         <div className='flex justify-center items-center  bg-yellow-50'>

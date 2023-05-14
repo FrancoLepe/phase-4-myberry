@@ -25,16 +25,20 @@ function App() {
 
 
   useEffect(() => {
-    fetch(`${API_URL}/check_session`, { credentials: 'include' })
+    fetch(`${API_URL}/check_session`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      },
+    })
       .then((response) => {
         if (response.ok) {
-          response.json()
-            .then((user) => {
-              setCurrentUser(user)
-            });
+          response.json().then((user) => {
+            handleLogin(user);
+          });
         }
       });
   }, []);
+  
 
 
 
@@ -44,13 +48,11 @@ function App() {
 
   
   function handleLogout() {
-    fetch(`${API_URL}/logout`, {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then(setCurrentUser(''))
-      .then(navigate("/"))
+    localStorage.removeItem('access_token');
+    setCurrentUser('');
+    navigate("/");
   }
+  
 
 
   function checkOutBook(book) {
