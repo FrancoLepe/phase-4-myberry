@@ -186,7 +186,7 @@ api.add_resource(CreateLogsById, '/create_logs/<int:id>')
 
 
 
-@app.route('/login', methods=['OPTIONS', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     if request.method == 'OPTIONS':
         response = make_response()
@@ -203,7 +203,12 @@ def login():
         if user:
             if user.password == password:
                 access_token = create_access_token(identity=user.id)
-                return jsonify({'access_token': access_token, 'user': user.to_dict()}), 200
+            
+                # Set the 'Access-Control-Allow-Origin' header
+                response = jsonify({'access_token': access_token, 'user': user.to_dict()}), 200
+                response.headers.add('Access-Control-Allow-Origin', 'https://flatiron-myberry-client.onrender.com')
+                return response
+            
         return jsonify({'error': '401 Unauthorized'}), 401
 
 
