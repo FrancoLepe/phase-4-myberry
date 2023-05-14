@@ -4,14 +4,23 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, User, Book, CheckoutLog
 from datetime import datetime, timedelta
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
-app.secret_key = b"\x7f\x7f(\xe8\x0c('\xa8\xa5\x82pb\t\x1d>rZ\x8c^\x7f\xbb\xe2L|"
+app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # Replace with your own secret key
+jwt = JWTManager(app)
 
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://flatiron-myberry-client.onrender.com"], "supports_credentials": True}},
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+
+
+
+
+
 migrate = Migrate(app, db)
 
 db.init_app(app)
@@ -175,19 +184,34 @@ class CreateLogsById(Resource):
 api.add_resource(CreateLogsById, '/create_logs/<int:id>')
 
 
-class Login(Resource):
-    def post(self):
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        return response
+
+    if request.method == 'POST':
         data = request.get_json()
         email = data['email']
         password = data['password']
         user = User.query.filter_by(email=email).first()
         if user:
-            if (user.password == password):
-                session['user_id'] = user.id
-                
-                return make_response(user.to_dict(), 200)
-        return make_response({'error': '401 Unauthorized'}, 401)
-api.add_resource(Login, '/login')
+            if user.password == password:
+                access_token = create_access_token(identity=user.id)
+            
+                # Set the 'Access-Control-Allow-Origin' header
+                response = jsonify({'access_token': access_token, 'user': user.to_dict()}), 200
+                response.headers.add('Access-Control-Allow-Origin', 'https://flatiron-myberry-client.onrender.com')
+                return response
+            
+        return jsonify({'error': '401 Unauthorized'}), 401
+
+
 
 
 class Logout(Resource):
@@ -200,12 +224,15 @@ api.add_resource(Logout, '/logout')
 
 
 class CheckSession(Resource):
+    @jwt_required()  # Protect the endpoint with JWT authentication
     def get(self):
-        user = User.query.filter(User.id == session.get('user_id')).first()
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
         if user:
             return user.to_dict()
         else:
             return {'message': '401: Not Authorized'}, 401
+
 
 
 api.add_resource(CheckSession, '/check_session')
