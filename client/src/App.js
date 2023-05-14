@@ -103,7 +103,7 @@ function App() {
 
 
   return (
-    <div className="App bg-yellow-50">
+    <div className="App h-screen bg-yellow-50">
 
       <NavBar currentUser={currentUser} />
       <Routes>
